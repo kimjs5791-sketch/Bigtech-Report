@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#2a78d6"><link rel="manifest" href="../manifest.webmanifest"><link rel="apple-touch-icon" href="../apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="빅테크 리포트"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>META 일일 리포트 · 2026-11-18</title>
+<style>:root {
+  color-scheme: light;
+  --page: #f4f4f1;
+  --surface: #ffffff;
+  --surface-2: #f7f7f5;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #ecebe6;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.08);
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.04), 0 4px 16px rgba(11, 11, 11, 0.04);
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --vol: #d6d5ce;
+  --up: #d03b3b;
+  --down: #1c5cab;
+  --pos-bg: #fdecec;
+  --neg-bg: #e8f0fb;
+  --neu-bg: #efefec;
+  --accent: #2a78d6;
+  --accent-soft: #eaf2fc;
+  --g0: #a32a2a;
+  --g1: #e06464;
+  --g2: #b9b8b0;
+  --g3: #5598e7;
+  --g4: #1c5cab;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --surface-2: #222220;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.08);
+    --shadow: none;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --vol: #3a3a37;
+    --up: #f07070;
+    --down: #6da7ec;
+    --pos-bg: #3a1d1d;
+    --neg-bg: #182a42;
+    --neu-bg: #2a2a28;
+    --accent: #3987e5;
+    --accent-soft: #182a42;
+    --g0: #e66767;
+    --g1: #a84848;
+    --g2: #5c5c57;
+    --g3: #3e6fae;
+    --g4: #86b6ef;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --surface-2: #222220; --ink: #f0efec; --ink-2: #c3c2b7;
+  --muted: #898781; --grid: #2c2c2a; --axis: #383835; --border: rgba(255, 255, 255, 0.08); --shadow: none;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --vol: #3a3a37; --up: #f07070; --down: #6da7ec;
+  --pos-bg: #3a1d1d; --neg-bg: #182a42; --neu-bg: #2a2a28; --accent: #3987e5; --accent-soft: #182a42;
+  --g0: #e66767; --g1: #a84848; --g2: #5c5c57; --g3: #3e6fae; --g4: #86b6ef;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font-family: "Pretendard", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+a { color: inherit; }
+h2, h3 { margin: 0; letter-spacing: -0.01em; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--muted); }
+
+/* ---------- hero */
+.hero {
+  display: grid; grid-template-columns: 1fr minmax(240px, 340px); gap: 32px; align-items: end;
+  padding: 8px 4px 24px;
+}
+.eyebrow { display: flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 14px; font-weight: 600; }
+.chip {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; margin: 6px 0 2px; }
+.price { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+.change { font-size: 20px; font-weight: 700; }
+.hero-range { padding-bottom: 6px; }
+.range-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.range-label.strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.range-track { position: relative; height: 6px; border-radius: 3px; background: var(--grid); margin: 8px 0; }
+.range-fill { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: linear-gradient(90deg, var(--g3), var(--g1)); opacity: 0.55; }
+.range-dot {
+  position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; transform: translate(-50%, -50%);
+  background: var(--ink); border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border);
+}
+
+/* ---------- KPI */
+.kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+.kpi-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+.kpi-value { font-size: 20px; font-weight: 700; margin-top: 2px; white-space: nowrap; }
+.kpi-sub { font-size: 12px; color: var(--ink-2); min-height: 1em; }
+
+.toc { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0 16px; position: sticky; top: 0; z-index: 5;
+  padding: 8px 0; background: var(--page); }
+.toc a { text-decoration: none; font-size: 13px; font-weight: 600; color: var(--ink-2); padding: 6px 12px;
+  border-radius: 999px; background: var(--surface); border: 1px solid var(--border); }
+.toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- cards */
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 22px 24px;
+  margin-bottom: 16px; box-shadow: var(--shadow); scroll-margin-top: 60px;
+}
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.card-head h2 { font-size: 19px; font-weight: 800; }
+.section-sub { font-size: 12px; color: var(--muted); }
+.sub-title { font-size: 15px; font-weight: 700; margin: 24px 0 8px; display: flex; align-items: center; gap: 8px; }
+.count { font-size: 12px; font-weight: 700; background: var(--neu-bg); color: var(--ink-2); padding: 1px 8px; border-radius: 999px; }
+.empty { display: flex; flex-direction: column; gap: 2px; padding: 18px; border-radius: 12px; background: var(--surface-2); color: var(--ink-2); font-size: 14px; }
+
+/* ---------- chart */
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; margin-bottom: 8px; }
+.legend-item {
+  display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 13px; color: var(--ink-2);
+  background: none; border: 1px solid transparent; border-radius: 8px; padding: 4px 10px; cursor: pointer;
+}
+.legend-item:hover { background: var(--surface-2); }
+.legend-item[aria-pressed="false"] { opacity: 0.4; }
+.legend-item[aria-pressed="false"] .key { background: var(--muted) !important; }
+.legend-hint { margin-left: auto; font-size: 12px; color: var(--muted); }
+.key { display: inline-block; width: 16px; height: 3px; border-radius: 2px; }
+.key.s1 { background: var(--s1); } .key.s2 { background: var(--s2); } .key.s3 { background: var(--s3); }
+.chart-wrap { position: relative; }
+.chart { width: 100%; height: 430px; outline: none; touch-action: pan-y; }
+.chart:focus-visible { box-shadow: 0 0 0 2px var(--accent); border-radius: 8px; }
+.chart svg { display: block; overflow: visible; }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .baseline { stroke: var(--axis); stroke-width: 1; }
+.chart .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.chart .line { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.chart .s1 { stroke: var(--s1); } .chart .s2 { stroke: var(--s2); } .chart .s3 { stroke: var(--s3); }
+.chart .area { fill: url(#areaGrad); }
+.chart .grad-top { stop-color: var(--s1); stop-opacity: 0.18; }
+.chart .grad-bot { stop-color: var(--s1); stop-opacity: 0; }
+.chart .vol { fill: var(--vol); }
+.chart .vol.on { fill: var(--s1); }
+.chart .cross { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.chart .pt { stroke: var(--surface); stroke-width: 2; }
+.chart .pt.s1 { fill: var(--s1); } .chart .pt.s2 { fill: var(--s2); } .chart .pt.s3 { fill: var(--s3); }
+.chart .last-tag rect { fill: var(--s1); }
+.chart .last-tag text { fill: #fff; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chart .panel-label { fill: var(--muted); font-size: 11px; font-weight: 600; }
+
+.tip {
+  position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10; min-width: 190px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 12px;
+  padding: 10px 12px; font-size: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+.tip-date { color: var(--muted); font-weight: 600; }
+.tip-price { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; margin: 2px 0 6px; }
+.tip-price small { font-size: 12px; font-weight: 700; margin-left: 6px; }
+.tip-row { display: flex; justify-content: space-between; gap: 16px; padding: 1px 0; }
+.tip-row span:first-child { color: var(--ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.tip-row b { font-variant-numeric: tabular-nums; font-weight: 700; }
+.tip hr { border: 0; border-top: 1px solid var(--grid); margin: 6px 0; }
+
+/* ---------- AI */
+.overview { margin: 0 0 16px; padding: 16px 18px; border-radius: 12px; background: var(--accent-soft); line-height: 1.7; font-size: 15px; }
+.issue { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--grid); }
+.issue-num { font-size: 13px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.issue-body { flex: 1; }
+.issue-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.issue-head h3 { font-size: 15px; font-weight: 700; }
+.issue p { margin: 6px 0 8px; color: var(--ink-2); line-height: 1.7; }
+.tone { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; }
+.tone.pos { background: var(--pos-bg); color: var(--up); }
+.tone.neg { background: var(--neg-bg); color: var(--down); }
+.tone.neu { background: var(--neu-bg); color: var(--ink-2); }
+.refs { display: flex; flex-wrap: wrap; gap: 6px; }
+.ref { font-size: 12px; text-decoration: none; color: var(--ink-2); background: var(--surface-2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px; }
+.ref:hover { color: var(--accent); border-color: var(--accent); }
+.watch { margin-top: 8px; padding: 14px 18px; border-radius: 12px; background: var(--surface-2); }
+.watch h3 { font-size: 14px; }
+.watch ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-2); }
+
+/* ---------- analyst */
+.cons-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+.consensus, .dist-box { background: var(--surface-2); border-radius: 14px; padding: 16px 18px; }
+.cons-head { display: flex; gap: 32px; margin-bottom: 30px; }
+.big { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.target-bar { position: relative; height: 8px; margin: 0 32px 8px; background: var(--grid); border-radius: 4px; }
+.tb-track { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: var(--g3); opacity: 0.5; }
+.tb-mark { position: absolute; top: 50%; width: 3px; height: 18px; border-radius: 2px; transform: translate(-50%, -50%); }
+.tb-mark span { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 11px; font-weight: 700; }
+.tb-mark.mean { background: var(--accent); } .tb-mark.mean span { color: var(--accent); }
+.tb-mark.now { background: var(--ink); } .tb-mark.now span { bottom: auto; top: 22px; color: var(--ink); }
+.consensus .range-label { margin-top: 26px; }
+.dist-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; font-size: 14px; }
+.dist { display: flex; gap: 2px; height: 14px; }
+.seg { border-radius: 2px; min-width: 4px; }
+.seg:first-child { border-radius: 4px 2px 2px 4px; } .seg:last-child { border-radius: 2px 4px 4px 2px; }
+.g0 { background: var(--g0); } .g1 { background: var(--g1); } .g2 { background: var(--g2); } .g3 { background: var(--g3); } .g4 { background: var(--g4); }
+.dist-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; font-size: 12px; color: var(--ink-2); }
+.dist-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-size: 12px; font-weight: 700; color: var(--muted); background: var(--surface-2); padding: 9px 12px; white-space: nowrap; }
+td { padding: 10px 12px; border-top: 1px solid var(--grid); white-space: nowrap; }
+tbody tr:hover td { background: var(--surface-2); }
+td.firm { font-weight: 700; }
+tr.none td { color: var(--muted); font-weight: 400; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+.dot.pos { background: var(--up); } .dot.neg { background: var(--down); } .dot.neu { background: var(--muted); }
+.bar-cell { display: flex; align-items: center; gap: 10px; min-width: 180px; }
+.hbar { flex: 1; height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.hbar div { height: 100%; background: var(--s1); border-radius: 0 4px 4px 0; }
+
+/* ---------- news */
+.news { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 24px; }
+.news li { break-inside: avoid; border-top: 1px solid var(--grid); }
+.news a { display: grid; grid-template-columns: 26px 1fr; gap: 2px 8px; padding: 10px 4px; text-decoration: none; border-radius: 8px; }
+.news a:hover { background: var(--surface-2); }
+.news a:hover .news-title { color: var(--accent); }
+.news-idx { grid-row: span 2; font-size: 12px; font-weight: 700; color: var(--muted); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.news-title { font-size: 14px; font-weight: 600; line-height: 1.45; }
+.news-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.lang { font-size: 10px; font-weight: 800; padding: 0 5px; border-radius: 4px; background: var(--neu-bg); color: var(--ink-2); }
+
+/* ---------- 분기 실적 · 재무제표 · EPS */
+.kpis4 { grid-template-columns: repeat(4, 1fr); margin: 0 0 12px; }
+.kpis4 .kpi { box-shadow: none; background: var(--surface-2); border-color: transparent; }
+.warn { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6;
+  background: color-mix(in srgb, var(--s2) 12%, var(--surface)); border: 1px solid color-mix(in srgb, var(--s2) 35%, var(--surface)); }
+.ebox { border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; margin-bottom: 12px; }
+.ebox h3 { font-size: 15px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.ebox ul { margin: 0; padding-left: 18px; color: var(--ink-2); line-height: 1.7; }
+.ebox .overview { margin: 4px 0 8px; }
+.tag-ai, .tag-auto { font-size: 10px; font-weight: 800; padding: 1px 7px; border-radius: 999px; }
+.tag-ai { background: var(--accent-soft); color: var(--accent); }
+.tag-auto { background: var(--neu-bg); color: var(--ink-2); }
+.pn { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pn h4 { font-size: 13px; margin: 0 0 4px; }
+.enews summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink-2); padding: 6px 0; }
+.enews ul { list-style: none; margin: 4px 0 0; padding: 0; }
+.enews li a { display: flex; gap: 6px; align-items: baseline; padding: 5px 2px; font-size: 13px; text-decoration: none; border-top: 1px solid var(--grid); }
+.enews li a:hover { color: var(--accent); }
+.unit { text-align: right; font-size: 12px; color: var(--muted); margin: 0 2px 4px; }
+table.fs td.rn { white-space: nowrap; }
+table.fs tr.grp td { background: var(--surface-2); font-weight: 800; font-size: 12px; color: var(--ink-2); }
+table.fs tr.strong td { font-weight: 700; }
+table.fs tr.ratio td { color: var(--muted); font-size: 12px; }
+table.fs tr.ratio td.rn { padding-left: 22px; }
+.chart.eps { height: 300px; }
+.chart .eps-bar { fill: var(--s1); opacity: .85; }
+.chart .eps-bar.miss { fill: var(--muted); }
+.chart .eps-bar.future { fill: none; stroke: var(--muted); stroke-dasharray: 4 3; opacity: 1; }
+.chart .eps-bar.on { opacity: 1; stroke: var(--ink); stroke-width: 1.5; }
+.chart .eps-est { fill: var(--s2); stroke: var(--surface); stroke-width: 1.5; }
+.chart .eps-val { fill: var(--ink-2); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chart .eps-val.muted { fill: var(--muted); font-weight: 600; }
+.legend-item.static { cursor: default; }
+.legend-item.static:hover { background: none; }
+.key.bar { height: 10px; width: 12px; }
+.key.dot { width: 9px; height: 9px; transform: rotate(45deg); border-radius: 1px; }
+
+.foot { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; line-height: 1.8; }
+
+/* ---------- responsive */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 16px; }
+  .kpis { grid-template-columns: repeat(3, 1fr); }
+  .cons-grid { grid-template-columns: 1fr; }
+  .kpis4 { grid-template-columns: repeat(2, 1fr); }
+  .pn { grid-template-columns: 1fr; }
+  .news { columns: 1; }
+  .legend-hint { display: none; }
+}
+@media (max-width: 520px) {
+  .price { font-size: 38px; }
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .card { padding: 18px 16px; }
+  .chart { height: 360px; }
+}
+</style><style>
+.sb{position:fixed;top:0;left:0;bottom:0;width:244px;z-index:100;overflow-y:auto;background:var(--surface);
+border-right:1px solid var(--border);padding:calc(env(safe-area-inset-top) + 14px) 10px 20px;transform:translateX(-100%);
+transition:transform .2s ease;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.sb.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.25)}
+.sb-dim{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.35);display:none}.sb.open~.sb-dim{display:block}
+.sb-title{font-weight:800;font-size:17px;padding:2px 10px 12px;color:var(--ink)}
+.sb-sec{font-size:11.5px;color:var(--muted);padding:12px 10px 6px;font-weight:600}
+.sb a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;color:var(--ink);text-decoration:none}
+.sb a:hover{background:var(--surface-2,rgba(127,127,127,.08))}
+.sb a.on{background:var(--chip,var(--accent-soft));box-shadow:inset 3px 0 0 var(--accent)}
+.sb .t{font-weight:700;font-size:14px}.sb .n{display:block;font-size:11px;color:var(--muted);font-weight:400;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb .p{text-align:right;font-size:12.5px;font-variant-numeric:tabular-nums;line-height:1.3}.sb .p .up{color:var(--up)}.sb .p .down{color:var(--down)}
+.sb .p .m{color:var(--muted);font-size:11.5px}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 8px) 12px 8px;
+background:var(--accent);color:#fff;font:600 15px/1.2 -apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.menu-btn{border:0;background:rgba(255,255,255,.18);color:#fff;font-size:18px;line-height:1;width:36px;height:36px;border-radius:10px;cursor:pointer}
+@media (min-width:900px){.sb{transform:none;box-shadow:none}.sb-dim{display:none!important}body{padding-left:244px}.topbar{display:none}}
+</style></head>
+<body><div class="topbar"><button class="menu-btn" type="button" aria-label="종목 선택 열기">☰</button>META 리포트</div><nav class="sb" aria-label="종목 선택"><div class="sb-title">빅테크 리포트</div><a href="../" class=""><span class="t">전체 종목</span><span class="p"><span class="m">카드 보기</span></span></a><div class="sb-sec">종목</div><a href="../r/GOOGL.html" class=""><span><span class="t">GOOGL</span><span class="n">Alphabet Inc. Class A</span></span><span class="p">$282.44<br><span class="up">▲0.80%</span></span></a><a href="../r/AMZN.html" class=""><span><span class="t">AMZN</span><span class="n">Amazon.com, Inc.</span></span><span class="p">$267.74<br><span class="up">▲3.82%</span></span></a><a href="../r/TSLA.html" class=""><span><span class="t">TSLA</span><span class="n">Tesla, Inc.</span></span><span class="p">$383.72<br><span class="up">▲0.95%</span></span></a><a href="../r/META.html" class="on"><span><span class="t">META</span><span class="n">Meta Platforms, Inc. Class A</span></span><span class="p">$616.38<br><span class="down">▼0.40%</span></span></a><a href="../r/NVDA.html" class=""><span><span class="t">NVDA</span><span class="n">NVIDIA Corporation</span></span><span class="p">$150.96<br><span class="down">▼2.89%</span></span></a><a href="../r/ANT.html" class=""><span><span class="t">ANT</span><span class="n">Anthropic PBC Class A</span></span><span class="p"><span class="m">상장 전</span></span></a></nav><div class="sb-dim"></div><div class="page">
+
+<header class="hero">
+  <div class="hero-main">
+    <div class="eyebrow"><span class="chip">NASDAQ</span>META · Meta Platforms, Inc. Class A</div>
+    <div class="price-row">
+      <span class="price">$616.38</span>
+      <span class="change down">
+        ▼ 2.49 (-0.40%)
+      </span>
+    </div>
+    <div class="muted">2026.11.18 (수) 미국 장 마감 기준 · USD · 전일 대비</div>
+  </div>
+  <div class="hero-range">
+    <div class="range-label"><span>52주 최저</span><span>52주 최고</span></div>
+    <div class="range-track"><div class="range-fill" style="width:37.2%"></div>
+      <div class="range-dot" style="left:37.2%" title="현재가 $616.38"></div></div>
+    <div class="range-label strong"><span>$519.37</span><span>$779.82</span></div>
+    <div class="muted small">52주 최고가 대비 -21.0%</div>
+  </div>
+</header><div class="kpis"><div class="kpi"><div class="kpi-label">1주</div><div class="kpi-value"><span class="down">▼ 1.97%</span></div><div class="kpi-sub"></div></div><div class="kpi"><div class="kpi-label">1개월</div><div class="kpi-value"><span class="down">▼ 11.22%</span></div><div class="kpi-sub"></div></div><div class="kpi"><div class="kpi-label">3개월</div><div class="kpi-value"><span class="up">▲ 13.01%</span></div><div class="kpi-sub"></div></div><div class="kpi"><div class="kpi-label">1년</div><div class="kpi-value"><span class="up">▲ 3.48%</span></div><div class="kpi-sub"></div></div><div class="kpi"><div class="kpi-label">거래량</div><div class="kpi-value">10.4M</div><div class="kpi-sub">20일 평균의 0.44배</div></div><div class="kpi"><div class="kpi-label">이동평균 (20일 / 60일)</div><div class="kpi-value">$625 / $665</div><div class="kpi-sub">종가가 20일선 아래 · 60일선 아래</div></div></div>
+<nav class="toc"><a href="#chart">주가 추이</a><a href="#earnings">분기 실적</a><a href="#eps">EPS 추이</a><a href="#statements">재무제표</a><a href="#analyst">애널리스트</a><a href="#holders">기관 보유</a><a href="#news">뉴스</a></nav>
+<section class="card" id="chart"><header class="card-head"><h2>주가 추이</h2><span class="section-sub">최근 1년 · 일별 · 2025.11.18 ~ 2026.11.18</span></header>
+<div class="legend" role="group" aria-label="표시할 선 선택">
+  <button type="button" class="legend-item" data-key="c" aria-pressed="true"><i class="key s1"></i>종가</button>
+  <button type="button" class="legend-item" data-key="ma20" aria-pressed="true"><i class="key s2"></i>20일 이동평균</button>
+  <button type="button" class="legend-item" data-key="ma60" aria-pressed="true"><i class="key s3"></i>60일 이동평균</button>
+  <span class="legend-hint">차트 위에 마우스를 올리면 일자별 주가가 표시됩니다</span>
+</div>
+<div class="chart-wrap">
+  <div id="price-chart" class="chart" tabindex="0" role="img"
+       aria-label="최근 1년 일별 종가 차트. 방향키로 날짜를 이동할 수 있습니다."></div>
+  <div id="chart-tip" class="tip" hidden></div>
+</div>
+<script type="application/json" id="chart-data">[{"d":"2025-11-18","o":589.6,"h":601.62,"l":581.81,"c":595.67,"v":25500600,"ma20":657.92,"ma60":711.61},{"d":"2025-11-19","o":591.71,"h":593.32,"l":579.28,"c":588.32,"v":24744700,"ma20":650.79,"ma60":708.9},{"d":"2025-11-20","o":601.46,"h":604.67,"l":581.38,"c":587.16,"v":20603000,"ma20":643.57,"ma60":706.28},{"d":"2025-11-21","o":586.51,"h":596.1,"l":579.89,"c":592.24,"v":21052600,"ma20":636.39,"ma60":703.68},{"d":"2025-11-24","o":596.7,"h":614.62,"l":595.61,"c":610.98,"v":23554900,"ma20":629.53,"ma60":701.6},{"d":"2025-11-25","o":621.89,"h":634.9,"l":616.21,"c":634.07,"v":25213000,"ma20":623.78,"ma60":699.97},{"d":"2025-11-26","o":635.53,"h":636.2,"l":629.49,"c":631.47,"v":15209500,"ma20":617.9,"ma60":698.26},{"d":"2025-11-28","o":633.93,"h":645.86,"l":633.35,"c":645.76,"v":11033200,"ma20":616.98,"ma60":696.59},{"d":"2025-12-01","o":637.39,"h":643.14,"l":635.6,"c":638.7,"v":13029900,"ma20":616.61,"ma60":694.75},{"d":"2025-12-02","o":640.17,"h":645.68,"l":635.91,"c":644.91,"v":11640900,"ma20":617.07,"ma60":693.01},{"d":"2025-12-03","o":642.23,"h":646.66,"l":635.39,"c":637.44,"v":11134300,"ma20":617.69,"ma60":690.92},{"d":"2025-12-04","o":673.71,"h":673.81,"l":657.82,"c":659.29,"v":29874600,"ma20":618.96,"ma60":689.43},{"d":"2025-12-05","o":661.76,"h":672.41,"l":660.15,"c":671.14,"v":21207900,"ma20":621.68,"ma60":688.15},{"d":"2025-12-08","o":667.08,"h":674.42,"l":662.82,"c":664.55,"v":13161000,"ma20":623.92,"ma60":686.68},{"d":"2025-12-09","o":661.53,"h":662.23,"l":651.13,"c":654.74,"v":12997100,"ma20":625.18,"ma60":684.9},{"d":"2025-12-10","o":647.75,"h":652.3,"l":641.22,"c":647.93,"v":16910900,"ma20":626.33,"ma60":682.77},{"d":"2025-12-11","o":641.12,"h":653.06,"l":638.63,"c":650.5,"v":13056700,"ma20":628.5,"ma60":680.73},{"d":"2025-12-12","o":647.6,"h":708.6,"l":636.45,"c":642.05,"v":14016900,"ma20":630.22,"ma60":678.48},{"d":"2025-12-15","o":644.04,"h":651.32,"l":637.06,"c":645.85,"v":15549100,"ma20":632.14,"ma60":676.33},{"d":"2025-12-16","o":641.85,"h":660.84,"l":641.55,"c":655.46,"v":14309100,"ma20":634.91,"ma60":674.54},{"d":"2025-12-17","o":653.93,"h":659.53,"l":647.53,"c":647.83,"v":15598500,"ma20":637.52,"ma60":672.79},{"d":"2025-12-18","o":655.34,"h":668.84,"l":654.77,"c":662.74,"v":20260300,"ma20":641.24,"ma60":671.2},{"d":"2025-12-19","o":664.71,"h":669.28,"l":656.49,"c":657.08,"v":49977100,"ma20":644.74,"ma60":669.72},{"d":"2025-12-22","o":659.95,"h":671.85,"l":654.96,"c":659.8,"v":15659400,"ma20":648.12,"ma60":668.36},{"d":"2025-12-23","o":658.36,"h":664.29,"l":656.56,"c":663.23,"v":8486800,"ma20":650.73,"ma60":667.06},{"d":"2025-12-24","o":660.83,"h":666.46,"l":660.5,"c":665.84,"v":5627500,"ma20":652.32,"ma60":665.96},{"d":"2025-12-26","o":666.34,"h":667.23,"l":659.62,"c":661.59,"v":7133800,"ma20":653.82,"ma60":665.07},{"d":"2025-12-29","o":656.32,"h":658.55,"l":652.71,"c":657.0,"v":8506500,"ma20":654.38,"ma60":663.95},{"d":"2025-12-30","o":657.0,"h":670.49,"l":656.15,"c":664.24,"v":9187500,"ma20":655.66,"ma60":663.22},{"d":"2025-12-31","o":663.04,"h":663.29,"l":657.75,"c":658.4,"v":7940400,"ma20":656.34,"ma60":662.3},{"d":"2026-01-02","o":661.03,"h":662.68,"l":641.85,"c":648.74,"v":13726500,"ma20":656.9,"ma60":661.27},{"d":"2026-01-05","o":649.34,"h":662.83,"l":646.09,"c":657.1,"v":12213700,"ma20":656.79,"ma60":660.3},{"d":"2026-01-06","o":657.88,"h":663.81,"l":650.23,"c":658.92,"v":11074400,"ma20":656.18,"ma60":659.1},{"d":"2026-01-07","o":653.96,"h":657.46,"l":643.15,"c":647.02,"v":12846300,"ma20":655.3,"ma60":658.16},{"d":"2026-01-08","o":644.22,"h":645.44,"l":634.09,"c":644.4,"v":11921700,"ma20":654.79,"ma60":657.02},{"d":"2026-01-09","o":643.78,"h":653.27,"l":641.2,"c":651.38,"v":11634900,"ma20":654.96,"ma60":656.1},{"d":"2026-01-12","o":650.85,"h":652.29,"l":639.58,"c":640.32,"v":14797200,"ma20":654.45,"ma60":654.85},{"d":"2026-01-13","o":640.62,"h":640.62,"l":622.5,"c":629.47,"v":18030400,"ma20":653.82,"ma60":653.52},{"d":"2026-01-14","o":624.89,"h":626.84,"l":613.24,"c":613.94,"v":15527900,"ma20":652.23,"ma60":651.84},{"d":"2026-01-15","o":616.89,"h":622.57,"l":612.65,"c":619.21,"v":13076100,"ma20":650.41,"ma60":650.0},{"d":"2026-01-16","o":622.58,"h":627.46,"l":618.49,"c":618.66,"v":17012500,"ma20":648.95,"ma60":648.13},{"d":"2026-01-20","o":606.32,"h":609.83,"l":598.46,"c":602.57,"v":15169600,"ma20":645.95,"ma60":645.99},{"d":"2026-01-21","o":605.18,"h":616.68,"l":598.54,"c":611.39,"v":14494700,"ma20":643.66,"ma60":643.99},{"d":"2026-01-22","o":627.73,"h":658.87,"l":624.94,"c":645.97,"v":21394700,"ma20":642.97,"ma60":642.49},{"d":"2026-01-23","o":643.11,"h":664.78,"l":642.8,"c":657.07,"v":22797700,"ma20":642.66,"ma60":640.97},{"d":"2026-01-26","o":663.42,"h":673.55,"l":659.59,"c":670.63,"v":16327400,"ma20":642.9,"ma60":639.67},{"d":"2026-01-27","o":672.86,"h":675.08,"l":662.95,"c":671.24,"v":13297400,"ma20":643.38,"ma60":638.37},{"d":"2026-01-28","o":672.77,"h":675.94,"l":664.39,"c":667.01,"v":25709600,"ma20":643.88,"ma60":638.42},{"d":"2026-01-29","o":735.54,"h":742.09,"l":710.72,"c":736.41,"v":59852900,"ma20":647.49,"ma60":639.92},{"d":"2026-01-30","o":725.63,"h":730.29,"l":711.76,"c":714.66,"v":23744600,"ma20":650.31,"ma60":641.24},{"d":"2026-02-02","o":712.77,"h":719.45,"l":701.71,"c":704.6,"v":14365200,"ma20":653.1,"ma60":642.56},{"d":"2026-02-03","o":705.55,"h":715.16,"l":684.65,"c":689.92,"v":13760700,"ma20":654.74,"ma60":643.5},{"d":"2026-02-04","o":685.96,"h":687.06,"l":665.75,"c":667.27,"v":16882800,"ma20":655.16,"ma60":644.34},{"d":"2026-02-05","o":661.88,"h":679.75,"l":651.82,"c":668.49,"v":17131800,"ma20":656.23,"ma60":645.15},{"d":"2026-02-06","o":663.78,"h":670.26,"l":644.84,"c":659.76,"v":18159300,"ma20":657.0,"ma60":645.65},{"d":"2026-02-09","o":661.48,"h":681.56,"l":657.09,"c":675.48,"v":14837500,"ma20":658.2,"ma60":646.5},{"d":"2026-02-10","o":675.86,"h":678.9,"l":668.07,"c":669.0,"v":10455800,"ma20":659.64,"ma60":647.53},{"d":"2026-02-11","o":672.27,"h":677.53,"l":655.41,"c":666.97,"v":14323800,"ma20":661.51,"ma60":648.52},{"d":"2026-02-12","o":668.25,"h":674.26,"l":643.62,"c":648.14,"v":14960100,"ma20":663.22,"ma60":649.2},{"d":"2026-02-13","o":643.44,"h":649.76,"l":632.94,"c":638.13,"v":12336400,"ma20":664.17,"ma60":649.83},{"d":"2026-02-17","o":637.86,"h":640.95,"l":627.19,"c":637.65,"v":12674700,"ma20":665.12,"ma60":650.53},{"d":"2026-02-18","o":632.17,"h":643.34,"l":626.54,"c":641.57,"v":14649200,"ma20":667.07,"ma60":651.42},{"d":"2026-02-19","o":636.93,"h":645.53,"l":635.08,"c":643.12,"v":10035700,"ma20":668.66,"ma60":652.35},{"d":"2026-02-20","o":638.05,"h":661.65,"l":637.14,"c":653.98,"v":14183500,"ma20":669.06,"ma60":653.38},{"d":"2026-02-23","o":650.86,"h":656.01,"l":634.37,"c":635.61,"v":8605900,"ma20":667.98,"ma60":653.79},{"d":"2026-02-24","o":631.45,"h":639.46,"l":627.36,"c":637.66,"v":10135600,"ma20":666.33,"ma60":653.85},{"d":"2026-02-25","o":640.88,"h":652.2,"l":640.49,"c":652.01,"v":11330700,"ma20":665.37,"ma60":654.19},{"d":"2026-02-26","o":648.88,"h":659.3,"l":645.84,"c":655.32,"v":10637700,"ma20":664.79,"ma60":654.35},{"d":"2026-02-27","o":641.8,"h":647.77,"l":636.48,"c":646.52,"v":15703000,"ma20":660.29,"ma60":654.48},{"d":"2026-03-02","o":635.52,"h":658.25,"l":632.87,"c":651.88,"v":9816100,"ma20":657.15,"ma60":654.6},{"d":"2026-03-03","o":646.63,"h":657.35,"l":637.2,"c":653.4,"v":12263800,"ma20":654.59,"ma60":654.86},{"d":"2026-03-04","o":656.27,"h":671.04,"l":655.98,"c":666.02,"v":10810100,"ma20":653.4,"ma60":654.98},{"d":"2026-03-05","o":660.23,"h":668.98,"l":648.64,"c":658.87,"v":13341400,"ma20":652.98,"ma60":654.77},{"d":"2026-03-06","o":646.24,"h":647.8,"l":634.48,"c":643.2,"v":13159400,"ma20":651.71,"ma60":654.42},{"d":"2026-03-09","o":633.15,"h":646.09,"l":625.17,"c":645.73,"v":13489700,"ma20":651.01,"ma60":654.27},{"d":"2026-03-10","o":651.88,"h":658.6,"l":647.33,"c":652.39,"v":9859300,"ma20":649.86,"ma60":654.34},{"d":"2026-03-11","o":653.08,"h":657.43,"l":646.7,"c":653.18,"v":8977200,"ma20":649.07,"ma60":654.38},{"d":"2026-03-12","o":647.08,"h":651.82,"l":635.26,"c":636.54,"v":11617500,"ma20":647.55,"ma60":654.29},{"d":"2026-03-13","o":622.29,"h":627.55,"l":607.98,"c":612.13,"v":18957600,"ma20":645.75,"ma60":653.73},{"d":"2026-03-16","o":630.92,"h":633.66,"l":622.03,"c":626.37,"v":15134900,"ma20":645.16,"ma60":653.25},{"d":"2026-03-17","o":626.91,"h":635.46,"l":620.63,"c":621.59,"v":10348800,"ma20":644.36,"ma60":652.81},{"d":"2026-03-18","o":615.28,"h":621.58,"l":613.56,"c":614.62,"v":11726300,"ma20":643.01,"ma60":652.01},{"d":"2026-03-19","o":611.1,"h":611.95,"l":601.23,"c":605.66,"v":13247700,"ma20":641.13,"ma60":651.15},{"d":"2026-03-20","o":602.5,"h":602.92,"l":586.24,"c":592.64,"v":21214900,"ma20":638.07,"ma60":650.03},{"d":"2026-03-23","o":604.75,"h":607.6,"l":597.98,"c":603.02,"v":13638000,"ma20":636.44,"ma60":649.03},{"d":"2026-03-24","o":598.07,"h":599.97,"l":589.99,"c":591.9,"v":10739700,"ma20":634.15,"ma60":647.8},{"d":"2026-03-25","o":597.71,"h":602.64,"l":592.38,"c":593.87,"v":12585000,"ma20":631.24,"ma60":646.67},{"d":"2026-03-26","o":581.49,"h":582.0,"l":542.42,"c":546.6,"v":35780100,"ma20":625.81,"ma60":644.83},{"d":"2026-03-27","o":539.17,"h":542.67,"l":519.37,"c":524.82,"v":30133000,"ma20":619.72,"ma60":642.5},{"d":"2026-03-30","o":535.46,"h":538.63,"l":527.63,"c":535.46,"v":22795200,"ma20":613.9,"ma60":640.45},{"d":"2026-03-31","o":549.04,"h":572.71,"l":545.83,"c":571.15,"v":32898300,"ma20":609.79,"ma60":639.16},{"d":"2026-04-01","o":579.14,"h":591.53,"l":572.84,"c":578.24,"v":23608100,"ma20":605.4,"ma60":637.85},{"d":"2026-04-02","o":565.07,"h":577.51,"l":558.74,"c":573.48,"v":13518500,"ma20":601.13,"ma60":636.42},{"d":"2026-04-06","o":576.7,"h":581.79,"l":571.02,"c":572.04,"v":9515700,"ma20":597.57,"ma60":635.17},{"d":"2026-04-07","o":571.5,"h":574.24,"l":563.79,"c":574.06,"v":9580800,"ma20":593.99,"ma60":634.0},{"d":"2026-04-08","o":604.96,"h":628.87,"l":590.82,"c":611.37,"v":32036600,"ma20":591.94,"ma60":633.33},{"d":"2026-04-09","o":625.9,"h":636.41,"l":621.93,"c":627.31,"v":19012900,"ma20":590.64,"ma60":633.12},{"d":"2026-04-10","o":633.38,"h":637.49,"l":623.26,"c":628.78,"v":13294800,"ma20":590.26,"ma60":633.11},{"d":"2026-04-13","o":628.42,"h":633.91,"l":623.33,"c":633.44,"v":9538900,"ma20":591.32,"ma60":633.43},{"d":"2026-04-14","o":642.12,"h":665.12,"l":638.27,"c":661.35,"v":17818000,"ma20":593.07,"ma60":634.13},{"d":"2026-04-15","o":665.86,"h":677.34,"l":663.08,"c":670.43,"v":14952600,"ma20":595.51,"ma60":635.0},{"d":"2026-04-16","o":674.83,"h":676.42,"l":666.61,"c":675.71,"v":9544800,"ma20":598.57,"ma60":636.21},{"d":"2026-04-17","o":677.44,"h":690.33,"l":673.97,"c":687.37,"v":16283500,"ma20":602.65,"ma60":637.48},{"d":"2026-04-20","o":680.19,"h":682.21,"l":666.86,"c":669.76,"v":12534000,"ma20":606.51,"ma60":637.88},{"d":"2026-04-21","o":669.85,"h":675.04,"l":666.19,"c":667.69,"v":8660100,"ma20":609.74,"ma60":638.05},{"d":"2026-04-22","o":673.2,"h":677.22,"l":668.6,"c":673.56,"v":9215600,"ma20":613.83,"ma60":638.1},{"d":"2026-04-23","o":662.56,"h":668.41,"l":651.93,"c":658.02,"v":11667000,"ma20":617.03,"ma60":637.88},{"d":"2026-04-24","o":659.19,"h":679.5,"l":652.72,"c":673.87,"v":13348300,"ma20":623.4,"ma60":638.0},{"d":"2026-04-27","o":669.85,"h":681.33,"l":669.69,"c":677.46,"v":12805200,"ma20":631.03,"ma60":637.01},{"d":"2026-04-28","o":673.08,"h":677.02,"l":664.49,"c":670.19,"v":10606800,"ma20":637.76,"ma60":636.27},{"d":"2026-04-29","o":667.76,"h":673.09,"l":662.67,"c":667.97,"v":18947500,"ma20":642.61,"ma60":635.66},{"d":"2026-04-30","o":618.26,"h":619.79,"l":598.97,"c":610.86,"v":52765000,"ma20":644.24,"ma60":634.35},{"d":"2026-05-01","o":613.64,"h":617.82,"l":605.07,"c":607.71,"v":21404000,"ma20":645.95,"ma60":633.35},{"d":"2026-05-04","o":606.9,"h":612.95,"l":601.72,"c":609.36,"v":16203900,"ma20":647.81,"ma60":632.37},{"d":"2026-05-05","o":612.26,"h":613.3,"l":599.33,"c":603.92,"v":17171300,"ma20":649.31,"ma60":631.44},{"d":"2026-05-06","o":600.02,"h":618.89,"l":597.07,"c":611.83,"v":19915500,"ma20":649.33,"ma60":630.38},{"d":"2026-05-07","o":613.67,"h":623.91,"l":612.49,"c":615.75,"v":12307400,"ma20":648.75,"ma60":629.49},{"d":"2026-05-08","o":614.15,"h":615.71,"l":605.02,"c":608.59,"v":13557000,"ma20":647.74,"ma60":628.52},{"d":"2026-05-11","o":603.53,"h":603.87,"l":597.06,"c":597.83,"v":15940600,"ma20":645.96,"ma60":627.68},{"d":"2026-05-12","o":593.8,"h":602.72,"l":591.58,"c":601.97,"v":11351600,"ma20":642.99,"ma60":627.07},{"d":"2026-05-13","o":597.8,"h":618.84,"l":595.64,"c":615.57,"v":14634400,"ma20":640.25,"ma60":626.71},{"d":"2026-05-14","o":614.94,"h":622.66,"l":613.95,"c":617.37,"v":10651200,"ma20":637.33,"ma60":626.3},{"d":"2026-05-15","o":612.94,"h":620.14,"l":608.27,"c":613.18,"v":13272600,"ma20":633.62,"ma60":625.8},{"d":"2026-05-18","o":608.07,"h":614.54,"l":602.66,"c":610.16,"v":13772400,"ma20":630.64,"ma60":625.07},{"d":"2026-05-19","o":607.88,"h":612.88,"l":599.52,"c":601.58,"v":11749900,"ma20":627.34,"ma60":624.51},{"d":"2026-05-20","o":599.73,"h":606.96,"l":596.79,"c":604.02,"v":11329700,"ma20":623.86,"ma60":623.95},{"d":"2026-05-21","o":598.97,"h":608.56,"l":593.79,"c":606.34,"v":13476100,"ma20":621.28,"ma60":623.18},{"d":"2026-05-22","o":606.84,"h":613.76,"l":605.91,"c":609.21,"v":11688600,"ma20":618.04,"ma60":622.42},{"d":"2026-05-26","o":607.85,"h":613.42,"l":604.26,"c":611.29,"v":12234200,"ma20":614.74,"ma60":621.83},{"d":"2026-05-27","o":608.36,"h":637.41,"l":607.96,"c":634.17,"v":23143600,"ma20":612.93,"ma60":621.53},{"d":"2026-05-28","o":638.4,"h":641.9,"l":628.23,"c":634.2,"v":16772400,"ma20":611.25,"ma60":621.21},{"d":"2026-05-29","o":632.41,"h":633.41,"l":622.28,"c":631.43,"v":19806500,"ma20":612.27,"ma60":620.64},{"d":"2026-06-01","o":629.32,"h":634.66,"l":598.5,"c":599.44,"v":29138800,"ma20":611.86,"ma60":619.65},{"d":"2026-06-02","o":602.21,"h":607.84,"l":595.66,"c":596.61,"v":18252000,"ma20":611.22,"ma60":618.87},{"d":"2026-06-03","o":601.97,"h":623.08,"l":599.24,"c":621.91,"v":23020100,"ma20":612.12,"ma60":618.47},{"d":"2026-06-04","o":622.6,"h":641.3,"l":621.36,"c":626.49,"v":21469200,"ma20":612.86,"ma60":618.04},{"d":"2026-06-05","o":622.39,"h":628.07,"l":581.91,"c":591.98,"v":30091600,"ma20":611.67,"ma60":617.02},{"d":"2026-06-08","o":590.99,"h":590.99,"l":578.23,"c":584.39,"v":19512400,"ma20":610.46,"ma60":616.15},{"d":"2026-06-09","o":589.99,"h":596.61,"l":580.01,"c":583.59,"v":16977400,"ma20":609.75,"ma60":615.68},{"d":"2026-06-10","o":579.73,"h":590.31,"l":569.62,"c":570.0,"v":17064000,"ma20":608.15,"ma60":614.74},{"d":"2026-06-11","o":564.86,"h":571.19,"l":556.06,"c":567.46,"v":17628000,"ma20":605.74,"ma60":613.83},{"d":"2026-06-12","o":571.97,"h":575.08,"l":559.94,"c":566.01,"v":14326400,"ma20":603.17,"ma60":613.02},{"d":"2026-06-15","o":579.44,"h":600.8,"l":578.84,"c":593.01,"v":17653300,"ma20":602.16,"ma60":612.81},{"d":"2026-06-16","o":593.18,"h":605.33,"l":591.53,"c":599.74,"v":11344400,"ma20":601.64,"ma60":612.93},{"d":"2026-06-17","o":591.53,"h":593.34,"l":565.74,"c":567.13,"v":20478300,"ma20":599.92,"ma60":612.33},{"d":"2026-06-18","o":572.37,"h":579.76,"l":562.66,"c":576.76,"v":28824600,"ma20":598.56,"ma60":612.08},{"d":"2026-06-22","o":571.57,"h":575.36,"l":559.37,"c":563.41,"v":15405500,"ma20":596.41,"ma60":611.57},{"d":"2026-06-23","o":561.81,"h":571.75,"l":560.58,"c":561.76,"v":13103300,"ma20":594.04,"ma60":611.83},{"d":"2026-06-24","o":561.45,"h":568.59,"l":555.11,"c":557.23,"v":13963600,"ma20":591.34,"ma60":612.37},{"d":"2026-06-25","o":555.11,"h":555.9,"l":539.75,"c":542.44,"v":16968600,"ma20":586.75,"ma60":612.48},{"d":"2026-06-26","o":542.91,"h":556.41,"l":539.97,"c":549.82,"v":18867700,"ma20":582.53,"ma60":612.13},{"d":"2026-06-29","o":559.56,"h":570.45,"l":557.56,"c":562.16,"v":15011400,"ma20":579.07,"ma60":611.86},{"d":"2026-06-30","o":560.5,"h":565.09,"l":551.0,"c":562.85,"v":18111100,"ma20":577.24,"ma60":611.68},{"d":"2026-07-01","o":607.43,"h":627.78,"l":594.63,"c":612.43,"v":45536300,"ma20":578.03,"ma60":612.36},{"d":"2026-07-02","o":607.42,"h":609.52,"l":579.96,"c":582.44,"v":21705900,"ma20":576.05,"ma60":612.49},{"d":"2026-07-06","o":594.37,"h":603.1,"l":581.3,"c":599.82,"v":17674100,"ma20":574.72,"ma60":612.3},{"d":"2026-07-07","o":607.11,"h":624.88,"l":603.18,"c":615.09,"v":18560800,"ma20":575.88,"ma60":612.1},{"d":"2026-07-08","o":613.91,"h":615.51,"l":597.54,"c":602.64,"v":13606500,"ma20":576.79,"ma60":611.66},{"d":"2026-07-09","o":583.53,"h":632.77,"l":576.61,"c":630.98,"v":26579700,"ma20":579.16,"ma60":611.62},{"d":"2026-07-10","o":659.82,"h":677.33,"l":657.49,"c":668.68,"v":40608900,"ma20":584.09,"ma60":611.74},{"d":"2026-07-13","o":660.86,"h":676.09,"l":653.68,"c":656.21,"v":19840700,"ma20":588.53,"ma60":611.51},{"d":"2026-07-14","o":651.49,"h":665.97,"l":648.54,"c":660.52,"v":16748200,"ma20":593.26,"ma60":611.25},{"d":"2026-07-15","o":663.08,"h":685.54,"l":656.14,"c":680.77,"v":19003400,"ma20":597.64,"ma60":611.14},{"d":"2026-07-16","o":676.75,"h":681.36,"l":659.64,"c":664.02,"v":15816000,"ma20":600.86,"ma60":611.05},{"d":"2026-07-17","o":647.19,"h":651.69,"l":625.51,"c":645.5,"v":22267900,"ma20":604.78,"ma60":610.68},{"d":"2026-07-20","o":646.19,"h":652.78,"l":635.51,"c":645.34,"v":10225200,"ma20":608.2,"ma60":610.21},{"d":"2026-07-21","o":653.66,"h":655.36,"l":642.69,"c":643.3,"v":9140500,"ma20":612.2,"ma60":609.96},{"d":"2026-07-22","o":647.19,"h":648.49,"l":623.51,"c":626.68,"v":11019600,"ma20":615.45,"ma60":609.18},{"d":"2026-07-23","o":607.93,"h":614.17,"l":596.75,"c":605.62,"v":15494800,"ma20":617.87,"ma60":607.98},{"d":"2026-07-24","o":604.82,"h":609.5,"l":593.98,"c":594.72,"v":11503500,"ma20":620.48,"ma60":606.72},{"d":"2026-07-27","o":606.74,"h":610.78,"l":592.66,"c":593.4,"v":11195300,"ma20":622.66,"ma60":605.48},{"d":"2026-07-28","o":596.35,"h":600.53,"l":586.54,"c":592.94,"v":12009300,"ma20":624.2,"ma60":605.18},{"d":"2026-07-29","o":592.78,"h":599.5,"l":581.76,"c":585.15,"v":22371100,"ma20":625.31,"ma60":604.8},{"d":"2026-07-30","o":525.59,"h":539.45,"l":524.08,"c":538.6,"v":42271500,"ma20":621.62,"ma60":603.62},{"d":"2026-07-31","o":543.17,"h":557.89,"l":539.79,"c":556.27,"v":24261500,"ma20":620.31,"ma60":602.83},{"d":"2026-08-03","o":561.8,"h":597.05,"l":558.92,"c":589.77,"v":25938100,"ma20":619.81,"ma60":602.46},{"d":"2026-08-04","o":581.04,"h":592.32,"l":577.79,"c":587.48,"v":17959200,"ma20":618.43,"ma60":601.99},{"d":"2026-08-05","o":599.99,"h":600.53,"l":579.66,"c":588.31,"v":14897200,"ma20":617.71,"ma60":601.65},{"d":"2026-08-06","o":586.49,"h":594.84,"l":585.54,"c":589.43,"v":11811500,"ma20":615.64,"ma60":601.51},{"d":"2026-08-07","o":585.18,"h":598.27,"l":585.16,"c":591.63,"v":11250300,"ma20":611.78,"ma60":601.34},{"d":"2026-08-10","o":598.66,"h":607.73,"l":591.56,"c":594.45,"v":14967300,"ma20":608.7,"ma60":600.99},{"d":"2026-08-11","o":597.53,"h":611.95,"l":592.93,"c":598.65,"v":13146900,"ma20":605.6,"ma60":600.68},{"d":"2026-08-12","o":600.6,"h":604.02,"l":577.75,"c":578.39,"v":16186900,"ma20":600.48,"ma60":600.1},{"d":"2026-08-13","o":580.25,"h":595.38,"l":578.93,"c":594.5,"v":11164200,"ma20":597.01,"ma60":599.84},{"d":"2026-08-14","o":596.51,"h":601.39,"l":588.83,"c":589.38,"v":8758000,"ma20":594.2,"ma60":599.63},{"d":"2026-08-17","o":589.28,"h":589.77,"l":564.3,"c":568.52,"v":17225600,"ma20":590.36,"ma60":599.04},{"d":"2026-08-18","o":557.04,"h":560.22,"l":542.78,"c":543.24,"v":27094900,"ma20":585.36,"ma60":597.99},{"d":"2026-08-19","o":540.91,"h":553.63,"l":536.85,"c":545.6,"v":16971700,"ma20":581.3,"ma60":596.93},{"d":"2026-08-20","o":546.52,"h":549.56,"l":538.88,"c":545.4,"v":13872200,"ma20":578.29,"ma60":595.83},{"d":"2026-08-21","o":546.46,"h":553.43,"l":542.8,"c":549.47,"v":13848000,"ma20":576.03,"ma60":594.42},{"d":"2026-08-24","o":549.77,"h":560.98,"l":545.87,"c":558.58,"v":12990600,"ma20":574.29,"ma60":593.16},{"d":"2026-08-25","o":563.44,"h":570.35,"l":560.96,"c":569.6,"v":9769100,"ma20":573.12,"ma60":592.13},{"d":"2026-08-26","o":589.84,"h":592.87,"l":561.44,"c":575.69,"v":31416300,"ma20":572.65,"ma60":591.73},{"d":"2026-08-27","o":576.03,"h":587.93,"l":567.17,"c":570.65,"v":15221400,"ma20":574.25,"ma60":591.3},{"d":"2026-08-28","o":571.1,"h":588.73,"l":570.55,"c":577.56,"v":16042400,"ma20":575.32,"ma60":590.56},{"d":"2026-08-31","o":577.17,"h":578.22,"l":568.69,"c":571.89,"v":13383800,"ma20":574.42,"ma60":589.65},{"d":"2026-09-01","o":557.91,"h":584.49,"l":555.66,"c":578.08,"v":15796900,"ma20":573.95,"ma60":589.42},{"d":"2026-09-02","o":578.33,"h":599.91,"l":576.54,"c":592.38,"v":16552700,"ma20":574.16,"ma60":589.55},{"d":"2026-09-03","o":604.01,"h":618.97,"l":603.87,"c":610.2,"v":19737100,"ma20":575.19,"ma60":590.0},{"d":"2026-09-04","o":611.87,"h":616.97,"l":604.79,"c":616.28,"v":15966200,"ma20":576.43,"ma60":590.77},{"d":"2026-09-08","o":615.72,"h":624.31,"l":609.26,"c":613.0,"v":18909700,"ma20":577.35,"ma60":591.53},{"d":"2026-09-09","o":648.13,"h":657.34,"l":638.06,"c":653.17,"v":35900700,"ma20":580.08,"ma60":592.98},{"d":"2026-09-10","o":653.19,"h":662.98,"l":641.63,"c":643.87,"v":21531900,"ma20":583.35,"ma60":593.83},{"d":"2026-09-11","o":652.99,"h":663.72,"l":645.69,"c":647.52,"v":16925000,"ma20":586.0,"ma60":594.62},{"d":"2026-09-14","o":657.31,"h":668.07,"l":648.71,"c":665.08,"v":19332300,"ma20":589.79,"ma60":596.26},{"d":"2026-09-15","o":658.78,"h":678.33,"l":655.68,"c":669.71,"v":19502800,"ma20":594.85,"ma60":597.8},{"d":"2026-09-16","o":679.37,"h":684.77,"l":671.38,"c":672.78,"v":17217800,"ma20":601.33,"ma60":599.63},{"d":"2026-09-17","o":681.9,"h":682.66,"l":666.52,"c":681.77,"v":15928000,"ma20":608.13,"ma60":601.63},{"d":"2026-09-18","o":688.08,"h":689.61,"l":660.28,"c":665.23,"v":27596400,"ma20":614.13,"ma60":603.43},{"d":"2026-09-21","o":680.3,"h":753.0,"l":679.6,"c":741.25,"v":48720500,"ma20":623.71,"ma60":606.74},{"d":"2026-09-22","o":731.4,"h":757.27,"l":730.0,"c":736.6,"v":28122100,"ma20":632.62,"ma60":609.85},{"d":"2026-09-23","o":747.6,"h":763.9,"l":739.51,"c":744.1,"v":30829200,"ma20":641.34,"ma60":612.89},{"d":"2026-09-24","o":744.36,"h":779.82,"l":743.01,"c":777.59,"v":34808500,"ma20":651.44,"ma60":616.47},{"d":"2026-09-25","o":768.85,"h":769.57,"l":746.54,"c":751.66,"v":25826700,"ma20":660.49,"ma60":618.79},{"d":"2026-09-28","o":750.04,"h":750.58,"l":713.19,"c":715.62,"v":27943100,"ma20":667.39,"ma60":621.01},{"d":"2026-09-29","o":725.0,"h":740.45,"l":715.1,"c":738.79,"v":23591100,"ma20":675.73,"ma60":623.32},{"d":"2026-09-30","o":730.27,"h":738.25,"l":721.3,"c":725.18,"v":19293000,"ma20":683.09,"ma60":625.16},{"d":"2026-10-01","o":728.53,"h":735.88,"l":721.51,"c":725.93,"v":12408400,"ma20":689.77,"ma60":627.21},{"d":"2026-10-02","o":733.25,"h":741.58,"l":726.2,"c":728.08,"v":12964100,"ma20":695.66,"ma60":628.83},{"d":"2026-10-05","o":727.71,"h":746.7,"l":727.12,"c":741.9,"v":15215300,"ma20":701.94,"ma60":630.05},{"d":"2026-10-06","o":746.73,"h":747.6,"l":736.69,"c":738.88,"v":12563100,"ma20":708.24,"ma60":631.43},{"d":"2026-10-07","o":738.29,"h":738.29,"l":720.15,"c":721.31,"v":13231600,"ma20":711.64,"ma60":632.44},{"d":"2026-10-08","o":724.54,"h":724.95,"l":711.68,"c":720.89,"v":16041100,"ma20":715.49,"ma60":633.11},{"d":"2026-10-09","o":726.51,"h":728.07,"l":716.2,"c":718.67,"v":12619900,"ma20":719.05,"ma60":634.02},{"d":"2026-10-12","o":728.5,"h":752.24,"l":727.64,"c":742.96,"v":24882400,"ma20":722.94,"ma60":635.65},{"d":"2026-10-13","o":735.99,"h":771.27,"l":734.84,"c":762.5,"v":22706200,"ma20":727.58,"ma60":637.6},{"d":"2026-10-14","o":760.75,"h":761.5,"l":734.29,"c":737.54,"v":16236300,"ma20":730.82,"ma60":639.17},{"d":"2026-10-15","o":726.56,"h":743.97,"l":715.58,"c":736.72,"v":16891500,"ma20":733.57,"ma60":641.0},{"d":"2026-10-16","o":736.7,"h":738.49,"l":702.71,"c":709.33,"v":20643800,"ma20":735.77,"ma60":642.73},{"d":"2026-10-19","o":707.16,"h":708.83,"l":693.86,"c":705.44,"v":16260900,"ma20":733.98,"ma60":644.58},{"d":"2026-10-20","o":694.98,"h":696.51,"l":681.05,"c":694.25,"v":17049100,"ma20":731.87,"ma60":646.26},{"d":"2026-10-21","o":697.6,"h":713.22,"l":689.68,"c":697.52,"v":29203900,"ma20":729.54,"ma60":648.0},{"d":"2026-10-22","o":676.35,"h":681.07,"l":639.69,"c":648.85,"v":40571000,"ma20":723.1,"ma60":649.06},{"d":"2026-10-23","o":638.18,"h":648.04,"l":633.27,"c":642.62,"v":14791600,"ma20":717.65,"ma60":650.8},{"d":"2026-10-26","o":638.36,"h":647.69,"l":627.8,"c":630.56,"v":30913600,"ma20":713.4,"ma60":652.03},{"d":"2026-10-27","o":627.07,"h":628.46,"l":619.21,"c":620.19,"v":51334100,"ma20":707.47,"ma60":652.54},{"d":"2026-10-28","o":621.85,"h":624.42,"l":609.0,"c":612.49,"v":35110900,"ma20":701.83,"ma60":652.96},{"d":"2026-10-29","o":621.29,"h":634.68,"l":616.8,"c":624.52,"v":31276200,"ma20":696.76,"ma60":653.56},{"d":"2026-10-30","o":614.51,"h":626.37,"l":610.13,"c":614.99,"v":25364700,"ma20":691.11,"ma60":653.99},{"d":"2026-11-02","o":614.44,"h":621.69,"l":606.41,"c":606.73,"v":19496500,"ma20":684.35,"ma60":654.24},{"d":"2026-11-03","o":610.76,"h":624.84,"l":610.1,"c":621.03,"v":13731300,"ma20":678.46,"ma60":654.68},{"d":"2026-11-04","o":641.15,"h":643.09,"l":624.5,"c":630.0,"v":32441800,"ma20":673.89,"ma60":655.2},{"d":"2026-11-05","o":632.3,"h":634.99,"l":583.8,"c":605.08,"v":28676200,"ma20":668.1,"ma60":655.65},{"d":"2026-11-06","o":607.33,"h":625.6,"l":606.66,"c":610.15,"v":15705500,"ma20":662.67,"ma60":655.91},{"d":"2026-11-09","o":631.05,"h":647.25,"l":630.0,"c":641.37,"v":19143300,"ma20":657.59,"ma60":656.78},{"d":"2026-11-10","o":637.98,"h":647.28,"l":635.5,"c":641.39,"v":13030600,"ma20":651.54,"ma60":657.99},{"d":"2026-11-11","o":646.74,"h":648.45,"l":627.97,"c":628.77,"v":15628600,"ma20":646.1,"ma60":659.42},{"d":"2026-11-12","o":625.35,"h":630.32,"l":618.92,"c":623.61,"v":10341800,"ma20":640.44,"ma60":660.72},{"d":"2026-11-13","o":627.21,"h":643.91,"l":624.79,"c":641.69,"v":15151000,"ma20":637.06,"ma60":662.32},{"d":"2026-11-16","o":640.0,"h":640.7,"l":620.14,"c":626.41,"v":11577900,"ma20":633.11,"ma60":663.6},{"d":"2026-11-17","o":624.21,"h":627.48,"l":613.51,"c":618.87,"v":12971800,"ma20":629.34,"ma60":664.61},{"d":"2026-11-18","o":620.11,"h":620.81,"l":610.3,"c":616.38,"v":10358800,"ma20":625.29,"ma60":665.39}]</script></section><section class="card" id="earnings"><header class="card-head"><h2>최근 분기 실적 · 2026년 3분기</h2><span class="section-sub">2026-10-21 발표 · 다음 발표 2027-01-27 (2026년 4분기, 컨센서스 EPS $8.33, 매출 $75.1B)</span></header><div class="kpis kpis4"><div class="kpi"><div class="kpi-label">매출</div><div class="kpi-value">$64.6B</div><div class="kpi-sub">YoY +26.1% · QoQ +6.2%</div></div><div class="kpi"><div class="kpi-label">영업이익</div><div class="kpi-value">$13.0B</div><div class="kpi-sub">영업이익률 20.1% · YoY -36.8%</div></div><div class="kpi"><div class="kpi-label">순이익</div><div class="kpi-value">$9.9B</div><div class="kpi-sub">YoY +264.0%</div></div><div class="kpi"><div class="kpi-label">희석 EPS</div><div class="kpi-value">$3.83</div><div class="kpi-sub">컨센서스 $5.42 · 서프라이즈 -29.3%</div></div></div><div class="ebox"><h3>실적 발표 요약</h3><ul><li>매출 $64.6B — 전년 동기 대비 +26.1%, 전 분기 대비 +6.2%, 매출총이익률 79.3%</li><li>영업이익 $13.0B — 전년 동기 대비 -36.8%, 영업이익률 20.1% (전년 동기 40.1% 대비 -20.0%p)</li><li>순이익 $9.9B — 전년 동기 대비 +264.0%, 이 중 영업외손익 $0.1B</li><li>희석 EPS $3.83 — 컨센서스 $5.42 대비 -29.3%</li><li>영업외손익을 빼면 EPS는 약 $3.82 수준 — 컨센서스 대비 -29.6% (실효세율 24.2% 적용 추정)</li><li>현금흐름 — 영업활동 $32.8B, 설비투자 $33.9B (전년 동기 대비 +80.3%), 잉여현금흐름 −$1.2B</li></ul></div><div class="ebox"><h3>시장 평가</h3><div class="kpis kpis4"><div class="kpi"><div class="kpi-label">발표 다음 거래일</div><div class="kpi-value"><span class="down">▼ 7.0%</span></div><div class="kpi-sub">2026-10-22</div></div><div class="kpi"><div class="kpi-label">5거래일 후</div><div class="kpi-value"><span class="down">▼ 12.2%</span></div><div class="kpi-sub">발표일 종가 대비</div></div><div class="kpi"><div class="kpi-label">거래량</div><div class="kpi-value">2.1배</div><div class="kpi-sub">직전 20일 평균 대비</div></div><div class="kpi"><div class="kpi-label">목표가 변경 (7일)</div><div class="kpi-value">상향 17 · 하향 3</div><div class="kpi-sub">평균 +6.0%</div></div></div><p class="overview">발표 다음 거래일 주가가 -7.0% 움직여 시장 반응은 <b>부정적</b>이었습니다. 발표 후 7일 동안 애널리스트 23곳이 의견을 냈고, 목표가는 17곳 상향 · 3곳 하향 (평균 +6.0%)했습니다.</p><div class="pn"><div><h4 class="up">긍정 요인</h4><ul><li>매출 두 자릿수 성장 (전년 동기 대비 +26.1%)</li><li>목표가 상향이 더 많음 (상향 17 · 하향 3)</li></ul></div><div><h4 class="down">우려 요인</h4><ul><li>영업이익률 하락 (40.1% → 20.1%)</li><li>영업외손익을 빼도 EPS가 컨센서스를 하회 (-29.6%)</li><li>설비투자 급증 (전년 동기 대비 +80.3%, 분기 $33.9B)</li><li>발표 후 주가 하락 (다음 거래일 -7.0%)</li></ul></div></div><h4 class="sub-title">발표 후 7일 애널리스트 의견</h4><div class="table-wrap"><table><thead><tr><th class="num">일자</th><th>기관</th><th>투자의견</th><th class="num">목표주가</th></tr></thead><tbody><tr><td class="num">10-22</td><td class="firm">Pivotal Research</td><td>Buy (매수)</td><td class="num">$930 → $960</td></tr><tr><td class="num">10-22</td><td class="firm">Cantor Fitzgerald</td><td>Overweight (매수)</td><td class="num">$840 → $860</td></tr><tr><td class="num">10-22</td><td class="firm">B of A Securities</td><td>Buy (매수)</td><td class="num">$810 → $845</td></tr><tr><td class="num">10-22</td><td class="firm">Keybanc</td><td>Overweight (매수)</td><td class="num">$900 → $905</td></tr><tr><td class="num">10-22</td><td class="firm">Susquehanna</td><td>Positive (매수)</td><td class="num">$650 → $850</td></tr><tr><td class="num">10-22</td><td class="firm">Guggenheim</td><td>Buy (매수)</td><td class="num">$850</td></tr><tr><td class="num">10-22</td><td class="firm">Rosenblatt</td><td>Buy (매수)</td><td class="num">$886 → $900</td></tr><tr><td class="num">10-22</td><td class="firm">Wedbush</td><td>Neutral (중립)</td><td class="num">$700 → $730</td></tr><tr><td class="num">10-22</td><td class="firm">StoneX</td><td>Hold (중립)</td><td class="num">-</td></tr><tr><td class="num">10-22</td><td class="firm">Piper Sandler</td><td>Overweight (매수)</td><td class="num">$875 → $850</td></tr><tr><td class="num">10-22</td><td class="firm">TD Cowen</td><td>Buy (매수)</td><td class="num">$865 → $850</td></tr><tr><td class="num">10-22</td><td class="firm">JP Morgan</td><td>Overweight (매수)</td><td class="num">$920 → $940</td></tr></tbody></table></div></div><details class="enews"><summary>실적 관련 기사 24건 (발표 후 1주일)</summary><ul><li><a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxNNDlGN05oelNLdkV4ZXJWRFVsZl80RDlnVFBhY044cjFTNEc5a3ZoU2NVeFdmejZYQTlZMXFQdm9POU5mcFlEcmhCLVhFZ2NDN3dFM1hrU2Zmdm42NlVGNTZWTE95YnF0ZlBjSzMyM2FqelpxR0ljMXZHYjF4THRCcEMwaTNDRUpvdlR2UndBanpMa0dVSGtTaWZWUFJVNEpCQ1NhLWdNaTR3SGpLNlBpZVdzb0UxVWdy?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Here’s How Much Meta Stock Is Expected to Move After Earnings <span class="muted small">Investopedia · 10-20</span></a></li><li><a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxPeEFsRjB6d2lwTVZ1UWhyVnhEZmkwRG9rQmo1dVp5d3plSFNEVzZHQllCakFVdXJaM2dQUklnQTEwMHp6MDlud0pmOERnSFVpeEtuMFY1ZjFGMmtkcGFlN2JSUVVMLTBDNEJqazJDUXVRWTBFczdKTXJVVTlXcHk2VHZJUE1aTTVfZm1uM2YzRQ?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Meta Shares Are Down 12% Since Earnings. Is the Stock a Buy? <span class="muted small">Morningstar · 10-28</span></a></li><li><a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE4tdTM5U2kwQ295eEpWaTdjamk4SDdmT09TWjFBNHBhZkRxcmR6SmpNT1lEbTZGZTl0LVZpYUxXUERlOEtsaWdFLXF2QTFSUG9LM0RjbkZyR21YR1dlNmN2NnhvTWFqanY4Q09IYjBqT29SOHBGeWxrZg?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Meta Stock Falls. Earnings Show Just How Much Future Growth Will Cost. <span class="muted small">Barron&#x27;s · 10-22</span></a></li><li><a href="https://news.google.com/rss/articles/CBMickFVX3lxTFBPYTI4UlUxdjlSUm9wTV9lNmJoZlhtSmhRSVgtYUdxa0NCRy1YWGNPUldnLXNrUzlhR003YVUwNjJuSFpWeTRfb1Vzd1JhN2Mtb25MSktUQlc0eWVoQkZhb0dYVWoxWEpxa19ucDZuSVVmQQ?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Meta Raises Its A.I. Spending, as Cash Pressures Grow <span class="muted small">The New York Times · 10-21</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiekFVX3lxTE13Wjk2WUxJQlotZzhWT0kycHlpRU5wQVpBVVpuZDJQQ1hKWG9zeVJLQUZnbTZrTzRKNFJLdV9Sa3NWZ0RPN1VhaEp0ODBsRnYxV3BJQy14b0VKN2lheXA5WHZteVZnSEhtc1dOS3dVbDF0UzdYUHQ2QzFn?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Meta Stock Falls Despite Strong Q3 Results As AI Spending Takes Focus <span class="muted small">Investor&#x27;s Business Daily · 10-22</span></a></li><li><a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxNYUg3OHlqdFBnQjFPTEtJQk5keWZscWdvTDZhZnJQYUZzNXlRYmJqT2NUc2tFRjd1dkw3TEEtcmVxMGtGRkl5UHZFSHFxUkRsRXMxVW95Y2RYVlFZa1pwN1Q3c3RCN2UtRUpVcUxkUy1SLS1peGphUHQteGdHbFpLWHdYTWFoSVFYSWJTeWF6b25aNFlUSWFmeU9pWENxS2gtTUJpY3RZN3hiLWtTb2lVa0EwM3lhOWxzRkV3blFaeWJiQ0oxN0F2NWFTOFBLdw?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Earnings call transcript: Meta beats Q3 2026 estimates as AI push lifts shares <span class="muted small">Investing.com · 10-21</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxNNTVZa1dZU3ZOV1lRNTU1QXNCZ2FGd01XdHNMb0QxR09ORkxadnlKdnYzdEZSMFZiZE1pQXkya0ptSmlUTFBnLW8zUWZTcjNHT3ljOFN5Ym5JVDNkTF8yOUNRdVByZ0JxZm9RZDQ1S0FJejIxUlhXOUZZdG8wSE5SZDIyQkFfYU9CbFgtdzlnbnhzaFF1ZGJTejhkU0FGTmhzaldrWWV5aHdYOGxMVEdnUFgyYlpSRTZpZFUzUnNRcnU?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Meta Delivers Another Blowout Earnings Report. Here&#x27;s What Investors Need To Know <span class="muted small">The Motley Fool · 10-21</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdXN0bm8yWDI3SWxpLVJJMGo4ME5maF85WXQ3di13Nm9XRTdJTGZrOEtfWFBJY1dNMmNBSzVmMmlRUGZSSmJZZmw1S1JiR3hQQ1lDSVlEVWhZLXZEeHV0eFowNkNWbUp4UFcyYVl0NXpiaWRpVDIzalhSQll1U1hIS2s5RS16N0VVZXlTWU5rZm1zYUctZnFiS1JlT0lsU0dkTU0xNGJlZWM?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Meta Platforms slides 7% after earnings report, capex outlook (META:NASDAQ) <span class="muted small">Seeking Alpha · 10-22</span></a></li><li><a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxQSTFGVHFxVmExUmJ2WHRRZHBtbF9weE1RdzBreW5UdThWRHl0ZEt5ejR2VUVrWUxQOS1jQUVFVmRWbHcxYW40SjItMDhCWEx0NG5RNWlOX0JMUU1lYndyRXlwR29QZTNBVjg0eHhrbVNCX0VpUENjQTQtZV9nNjRkSVJSNTdKX0Q4NW81QlVUY0lHTlpXNC1j?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>Meta Platforms (META) Tops Q3 Earnings and Revenue Estimates <span class="muted small">Yahoo Finance · 10-21</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNNFJEWXZDRFZzMEJPX0J3eXNEQ1V3ZGphNDAtNUUwTW5aSmZkRzFPd0tDMl9BYmNMeC1NNWg0MXdZb0x2ZmZLN09Hc0lBMThRdmdiUi1CZjJvUGFmZlBGSkdWdXB5Vl9OY0pISTE0Y0lBNldGdVN4NjBldkF4Nl9aMTVlWVR6UnQ5?oc=5" target="_blank" rel="noopener"><span class="lang">EN</span>If There’s a Market Bubble to Pop, Meta Earnings Hold the Pin <span class="muted small">Barron&#x27;s · 10-21</span></a></li></ul></details></section><section class="card" id="eps"><header class="card-head"><h2>주당이익(EPS) 추이</h2><span class="section-sub">분기별 희석 EPS · 실제 vs 컨센서스</span></header>
+<div class="legend"><span class="legend-item static"><i class="key s1 bar"></i>실제 EPS</span>
+  <span class="legend-item static"><i class="key s2 dot"></i>컨센서스 (예상)</span>
+  <span class="legend-hint">막대에 마우스를 올리면 발표일·서프라이즈가 표시됩니다</span></div>
+<div class="unit">(단위: $/주)</div>
+<div class="chart-wrap"><div id="eps-chart" class="chart eps" tabindex="0" role="img" aria-label="분기별 주당이익 추이"></div>
+<div id="eps-tip" class="tip" hidden></div></div>
+<script type="application/json" id="eps-data">[{"q":"2023년 4분기","ql":"23Q4","date":"2024-02-01","est":4.94,"act":5.33,"sur":7.9},{"q":"2024년 1분기","ql":"24Q1","date":"2024-04-24","est":4.32,"act":4.71,"sur":8.9},{"q":"2024년 2분기","ql":"24Q2","date":"2024-07-31","est":4.76,"act":5.16,"sur":8.4},{"q":"2024년 3분기","ql":"24Q3","date":"2024-10-30","est":5.29,"act":6.03,"sur":13.9},{"q":"2024년 4분기","ql":"24Q4","date":"2025-01-29","est":6.76,"act":8.02,"sur":18.7},{"q":"2025년 1분기","ql":"25Q1","date":"2025-04-30","est":5.22,"act":6.43,"sur":23.1},{"q":"2025년 2분기","ql":"25Q2","date":"2025-07-30","est":5.9,"act":7.14,"sur":21.0},{"q":"2025년 3분기","ql":"25Q3","date":"2025-10-29","est":6.71,"act":1.05,"sur":-84.3},{"q":"2025년 4분기","ql":"25Q4","date":"2026-01-28","est":8.22,"act":8.88,"sur":8.0},{"q":"2026년 1분기","ql":"26Q1","date":"2026-04-29","est":6.66,"act":10.44,"sur":56.8},{"q":"2026년 2분기","ql":"26Q2","date":"2026-07-29","est":7.22,"act":6.18,"sur":-14.4},{"q":"2026년 3분기","ql":"26Q3","date":"2026-10-21","est":5.42,"act":3.83,"sur":-29.3},{"q":"2026년 4분기","ql":"26Q4","date":"2027-01-27","est":8.33,"act":null,"sur":null}]</script></section><section class="card" id="statements"><header class="card-head"><h2>분기 재무제표 요약</h2><span class="section-sub">최근 5개 분기 · Yahoo Finance</span></header><div class="unit">(단위: 금액 $B · EPS $ · 비율 %)</div><div class="table-wrap"><table class="fs"><thead><tr><th>항목</th><th class="num">2025년 3분기</th><th class="num">2025년 4분기</th><th class="num">2026년 1분기</th><th class="num">2026년 2분기</th><th class="num">2026년 3분기</th></tr></thead><tbody><tr class="grp"><td colspan="6">손익계산서</td></tr><tr class="strong"><td class="rn">매출</td><td class="num">51.2</td><td class="num">59.9</td><td class="num">56.3</td><td class="num">60.8</td><td class="num">64.6</td></tr><tr class="ratio"><td class="rn">매출 성장률 (YoY)</td><td class="num muted">-</td><td class="num muted">-</td><td class="num muted">-</td><td class="num muted">-</td><td class="num">26.1%</td></tr><tr class=""><td class="rn">매출원가</td><td class="num">9.2</td><td class="num">10.9</td><td class="num">10.2</td><td class="num">11.3</td><td class="num">13.4</td></tr><tr class=""><td class="rn">매출총이익</td><td class="num">42.0</td><td class="num">49.0</td><td class="num">46.1</td><td class="num">49.5</td><td class="num">51.2</td></tr><tr class=""><td class="rn">연구개발비</td><td class="num">15.1</td><td class="num">17.1</td><td class="num">17.7</td><td class="num">21.7</td><td class="num">20.1</td></tr><tr class=""><td class="rn">판매관리비</td><td class="num">6.4</td><td class="num">7.1</td><td class="num">5.5</td><td class="num">9.0</td><td class="num">18.2</td></tr><tr class="strong"><td class="rn">영업이익</td><td class="num">20.5</td><td class="num">24.7</td><td class="num">22.9</td><td class="num">18.8</td><td class="num">13.0</td></tr><tr class="ratio"><td class="rn">영업이익률</td><td class="num">40.1%</td><td class="num">41.3%</td><td class="num">40.6%</td><td class="num">30.9%</td><td class="num">20.1%</td></tr><tr class=""><td class="rn">영업외손익</td><td class="num">1.0</td><td class="num">0.4</td><td class="num down">-1.3</td><td class="num down">-0.1</td><td class="num">0.1</td></tr><tr class=""><td class="rn">세전이익</td><td class="num">21.7</td><td class="num">25.4</td><td class="num">21.8</td><td class="num">18.8</td><td class="num">13.0</td></tr><tr class=""><td class="rn">법인세</td><td class="num">19.0</td><td class="num">2.6</td><td class="num down">-5.0</td><td class="num">2.9</td><td class="num">3.1</td></tr><tr class="strong"><td class="rn">순이익</td><td class="num">2.7</td><td class="num">22.8</td><td class="num">26.8</td><td class="num">15.8</td><td class="num">9.9</td></tr><tr class="ratio"><td class="rn">순이익률</td><td class="num">5.3%</td><td class="num">38.0%</td><td class="num">47.5%</td><td class="num">26.1%</td><td class="num">15.3%</td></tr><tr class="strong"><td class="rn">희석 EPS ($)</td><td class="num">$1.05</td><td class="num">$8.88</td><td class="num">$10.44</td><td class="num">$6.18</td><td class="num">$3.83</td></tr><tr class="grp"><td colspan="6">재무상태표 (분기 말)</td></tr><tr class=""><td class="rn">총자산</td><td class="num">303.8</td><td class="num">366.0</td><td class="num">395.2</td><td class="num">450.0</td><td class="num">478.8</td></tr><tr class=""><td class="rn">현금·단기투자</td><td class="num">44.4</td><td class="num">81.6</td><td class="num">81.2</td><td class="num">90.3</td><td class="num">82.4</td></tr><tr class=""><td class="rn">총부채</td><td class="num">109.8</td><td class="num">148.8</td><td class="num">151.6</td><td class="num">188.7</td><td class="num">206.4</td></tr><tr class=""><td class="rn">총차입금</td><td class="num">51.1</td><td class="num">83.9</td><td class="num">86.8</td><td class="num">112.3</td><td class="num">114.8</td></tr><tr class="strong"><td class="rn">자본총계</td><td class="num">194.1</td><td class="num">217.2</td><td class="num">243.7</td><td class="num">261.2</td><td class="num">272.4</td></tr><tr class="ratio"><td class="rn">부채비율</td><td class="num">56.6%</td><td class="num">68.5%</td><td class="num">62.2%</td><td class="num">72.3%</td><td class="num">75.8%</td></tr><tr class="grp"><td colspan="6">현금흐름표</td></tr><tr class=""><td class="rn">영업활동 현금흐름</td><td class="num">30.0</td><td class="num">36.2</td><td class="num">32.2</td><td class="num">31.9</td><td class="num">32.8</td></tr><tr class=""><td class="rn">설비투자(CapEx)</td><td class="num down">-18.8</td><td class="num down">-21.4</td><td class="num down">-19.0</td><td class="num down">-30.1</td><td class="num down">-33.9</td></tr><tr class="strong"><td class="rn">잉여현금흐름(FCF)</td><td class="num">11.2</td><td class="num">14.8</td><td class="num">13.2</td><td class="num">1.7</td><td class="num down">-1.2</td></tr><tr class=""><td class="rn">자사주 매입</td><td class="num down">-3.3</td><td class="num">0.0</td><td class="num">0.0</td><td class="num">0.0</td><td class="num">0.0</td></tr><tr class=""><td class="rn">배당금 지급</td><td class="num down">-1.3</td><td class="num down">-1.3</td><td class="num down">-1.3</td><td class="num down">-1.4</td><td class="num down">-1.4</td></tr></tbody></table></div></section><section class="card" id="analyst"><header class="card-head"><h2>월가 애널리스트 평가</h2><span class="section-sub">Yahoo Finance</span></header><div class="cons-grid">
+<div class="consensus">
+  <div class="cons-head">
+    <div><div class="kpi-label">평균 목표주가</div><div class="big">$848.23</div></div>
+    <div><div class="kpi-label">현재가 대비</div><div class="big"><span class="up">▲ 37.6%</span></div></div>
+  </div>
+  <div class="target-bar" aria-label="목표주가 범위">
+    <div class="tb-track" style="left:7.8%;width:92.2%"></div>
+    <div class="tb-mark mean" style="left:53.5%"><span>평균 $848</span></div>
+    <div class="tb-mark now" style="left:0.0%"><span>현재 $616</span></div>
+  </div>
+  <div class="range-label"><span>최저 $650</span><span>중앙값 $850</span><span>최고 $1,050</span></div>
+</div>
+<div class="dist-box">
+  <div class="dist-head"><span class="kpi-label">투자의견 분포</span>
+    <span><b>매수 89%</b> <span class="muted">· 애널리스트 62명</span></span></div>
+  <div class="dist"><div class="seg g0" style="flex:10" title="적극매수 10명"></div><div class="seg g1" style="flex:45" title="매수 45명"></div><div class="seg g2" style="flex:6" title="중립 6명"></div><div class="seg g3" style="flex:1" title="매도 1명"></div></div>
+  <div class="dist-legend"><span><i class="sw g0"></i>적극매수 <b>10</b></span><span><i class="sw g1"></i>매수 <b>45</b></span><span><i class="sw g2"></i>중립 <b>6</b></span><span><i class="sw g3"></i>매도 <b>1</b></span></div>
+</div></div><h3 class="sub-title">주요 투자은행 최신 의견</h3><div class="table-wrap"><table><thead><tr><th>기관</th><th class="num">일자</th><th>투자의견</th><th>변경</th><th class="num">목표주가</th><th class="num">상승여력</th></tr></thead><tbody><tr><td class="firm">Goldman Sachs</td><td class="num">2026-10-14</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$860</td><td class="num"><span class="up">▲ 39.5%</span></td></tr><tr><td class="firm">Morgan Stanley</td><td class="num">2026-10-19</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$775 → $820</td><td class="num"><span class="up">▲ 33.0%</span></td></tr><tr><td class="firm">JP Morgan</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$920 → $940</td><td class="num"><span class="up">▲ 52.5%</span></td></tr><tr><td class="firm">Bank of America</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$810 → $845</td><td class="num"><span class="up">▲ 37.1%</span></td></tr><tr><td class="firm">Citi</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$895 → $905</td><td class="num"><span class="up">▲ 46.8%</span></td></tr><tr><td class="firm">Wells Fargo</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$1000 → $995</td><td class="num"><span class="up">▲ 61.4%</span></td></tr><tr><td class="firm">UBS</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$884 → $892</td><td class="num"><span class="up">▲ 44.7%</span></td></tr><tr><td class="firm">Barclays</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$780 → $880</td><td class="num"><span class="up">▲ 42.8%</span></td></tr><tr><td class="firm">Deutsche Bank</td><td class="num">2026-09-25</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$750 → $820</td><td class="num"><span class="up">▲ 33.0%</span></td></tr><tr><td class="firm">Jefferies</td><td class="num">2026-09-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$710 → $875</td><td class="num"><span class="up">▲ 42.0%</span></td></tr><tr><td class="firm">Evercore ISI</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Outperform (매수)</td><td>유지</td><td class="num">$860 → $870</td><td class="num"><span class="up">▲ 41.1%</span></td></tr><tr><td class="firm">RBC Capital</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Outperform (매수)</td><td>유지</td><td class="num">$770 → $800</td><td class="num"><span class="up">▲ 29.8%</span></td></tr></tbody></table></div><h3 class="sub-title">최근 30일 의견 변경 <span class="count">48</span></h3><div class="table-wrap"><table><thead><tr><th>기관</th><th class="num">일자</th><th>투자의견</th><th>변경</th><th class="num">목표주가</th><th class="num">상승여력</th></tr></thead><tbody><tr><td class="firm">UBS</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$884 → $892</td><td class="num"><span class="up">▲ 44.7%</span></td></tr><tr><td class="firm">Citigroup</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$895 → $905</td><td class="num"><span class="up">▲ 46.8%</span></td></tr><tr><td class="firm">DA Davidson</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$700 → $800</td><td class="num"><span class="up">▲ 29.8%</span></td></tr><tr><td class="firm">BMO Capital</td><td class="num">2026-10-22</td><td><span class="dot neu"></span>Market Perform (중립)</td><td>유지</td><td class="num">$580 → $685</td><td class="num"><span class="up">▲ 11.1%</span></td></tr><tr><td class="firm">Evercore ISI Group</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Outperform (매수)</td><td>유지</td><td class="num">$860 → $870</td><td class="num"><span class="up">▲ 41.1%</span></td></tr><tr><td class="firm">Mizuho</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Outperform (매수)</td><td>유지</td><td class="num">$750 → $950</td><td class="num"><span class="up">▲ 54.1%</span></td></tr><tr><td class="firm">Barclays</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$780 → $880</td><td class="num"><span class="up">▲ 42.8%</span></td></tr><tr><td class="firm">RBC Capital</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Outperform (매수)</td><td>유지</td><td class="num">$770 → $800</td><td class="num"><span class="up">▲ 29.8%</span></td></tr><tr><td class="firm">Wells Fargo</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$1000 → $995</td><td class="num"><span class="up">▲ 61.4%</span></td></tr><tr><td class="firm">Citizens</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Market Outperform (매수)</td><td>재확인</td><td class="num">$885</td><td class="num"><span class="up">▲ 43.6%</span></td></tr><tr><td class="firm">Scotiabank</td><td class="num">2026-10-22</td><td><span class="dot neu"></span>Sector Perform (중립)</td><td>유지</td><td class="num">$600 → $650</td><td class="num"><span class="up">▲ 5.5%</span></td></tr><tr><td class="firm">JP Morgan</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$920 → $940</td><td class="num"><span class="up">▲ 52.5%</span></td></tr><tr><td class="firm">TD Cowen</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$865 → $850</td><td class="num"><span class="up">▲ 37.9%</span></td></tr><tr><td class="firm">Piper Sandler</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$875 → $850</td><td class="num"><span class="up">▲ 37.9%</span></td></tr><tr><td class="firm">StoneX</td><td class="num">2026-10-22</td><td><span class="dot neu"></span>Hold (중립)</td><td>재확인</td><td class="num">-</td><td class="num"><span class="flat">-</span></td></tr><tr><td class="firm">Wedbush</td><td class="num">2026-10-22</td><td><span class="dot neu"></span>Neutral (중립)</td><td>유지</td><td class="num">$700 → $730</td><td class="num"><span class="up">▲ 18.4%</span></td></tr><tr><td class="firm">Rosenblatt</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$886 → $900</td><td class="num"><span class="up">▲ 46.0%</span></td></tr><tr><td class="firm">Guggenheim</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>재확인</td><td class="num">$850</td><td class="num"><span class="up">▲ 37.9%</span></td></tr><tr><td class="firm">Susquehanna</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Positive (매수)</td><td>유지</td><td class="num">$650 → $850</td><td class="num"><span class="up">▲ 37.9%</span></td></tr><tr><td class="firm">Keybanc</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$900 → $905</td><td class="num"><span class="up">▲ 46.8%</span></td></tr><tr><td class="firm">B of A Securities</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$810 → $845</td><td class="num"><span class="up">▲ 37.1%</span></td></tr><tr><td class="firm">Cantor Fitzgerald</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$840 → $860</td><td class="num"><span class="up">▲ 39.5%</span></td></tr><tr><td class="firm">Pivotal Research</td><td class="num">2026-10-22</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$930 → $960</td><td class="num"><span class="up">▲ 55.7%</span></td></tr><tr><td class="firm">Rosenblatt</td><td class="num">2026-10-20</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$886</td><td class="num"><span class="up">▲ 43.7%</span></td></tr><tr><td class="firm">Morgan Stanley</td><td class="num">2026-10-19</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$775 → $820</td><td class="num"><span class="up">▲ 33.0%</span></td></tr><tr><td class="firm">Citigroup</td><td class="num">2026-10-15</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$800 → $895</td><td class="num"><span class="up">▲ 45.2%</span></td></tr><tr><td class="firm">JP Morgan</td><td class="num">2026-10-15</td><td><span class="dot pos"></span>Overweight (매수)</td><td>재확인</td><td class="num">$920</td><td class="num"><span class="up">▲ 49.3%</span></td></tr><tr><td class="firm">Goldman Sachs</td><td class="num">2026-10-14</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$860</td><td class="num"><span class="up">▲ 39.5%</span></td></tr><tr><td class="firm">UBS</td><td class="num">2026-10-14</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$715 → $884</td><td class="num"><span class="up">▲ 43.4%</span></td></tr><tr><td class="firm">Guggenheim</td><td class="num">2026-10-14</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$700 → $850</td><td class="num"><span class="up">▲ 37.9%</span></td></tr><tr><td class="firm">Pivotal Research</td><td class="num">2026-10-13</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$790 → $930</td><td class="num"><span class="up">▲ 50.9%</span></td></tr><tr><td class="firm">Truist Securities</td><td class="num">2026-10-13</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$763 → $1000</td><td class="num"><span class="up">▲ 62.2%</span></td></tr><tr><td class="firm">Keybanc</td><td class="num">2026-10-13</td><td><span class="dot pos"></span>Overweight (매수)</td><td>재확인</td><td class="num">$900</td><td class="num"><span class="up">▲ 46.0%</span></td></tr><tr><td class="firm">Rosenblatt</td><td class="num">2026-10-13</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$886</td><td class="num"><span class="up">▲ 43.7%</span></td></tr><tr><td class="firm">Cantor Fitzgerald</td><td class="num">2026-10-12</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$860 → $840</td><td class="num"><span class="up">▲ 36.3%</span></td></tr><tr><td class="firm">TD Cowen</td><td class="num">2026-10-08</td><td><span class="dot pos"></span>Buy (매수)</td><td>재확인</td><td class="num">$865</td><td class="num"><span class="up">▲ 40.3%</span></td></tr><tr><td class="firm">Wells Fargo</td><td class="num">2026-10-06</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$796 → $1000</td><td class="num"><span class="up">▲ 62.2%</span></td></tr><tr><td class="firm">Deutsche Bank</td><td class="num">2026-09-25</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$750 → $820</td><td class="num"><span class="up">▲ 33.0%</span></td></tr><tr><td class="firm">Canaccord Genuity</td><td class="num">2026-09-25</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$930 → $950</td><td class="num"><span class="up">▲ 54.1%</span></td></tr><tr><td class="firm">TD Cowen</td><td class="num">2026-09-25</td><td><span class="dot pos"></span>Buy (매수)</td><td>유지</td><td class="num">$750 → $865</td><td class="num"><span class="up">▲ 40.3%</span></td></tr><tr><td class="firm">Piper Sandler</td><td class="num">2026-09-25</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$785 → $875</td><td class="num"><span class="up">▲ 42.0%</span></td></tr><tr><td class="firm">Raymond James</td><td class="num">2026-09-24</td><td><span class="dot pos"></span>Strong Buy (매수)</td><td>유지</td><td class="num">$650 → $860</td><td class="num"><span class="up">▲ 39.5%</span></td></tr><tr><td class="firm">Tigress Financial</td><td class="num">2026-09-24</td><td><span class="dot pos"></span>Strong Buy (매수)</td><td>유지</td><td class="num">$945 → $995</td><td class="num"><span class="up">▲ 61.4%</span></td></tr><tr><td class="firm">JP Morgan</td><td class="num">2026-09-24</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$820 → $920</td><td class="num"><span class="up">▲ 49.3%</span></td></tr><tr><td class="firm">RBC Capital</td><td class="num">2026-09-24</td><td><span class="dot pos"></span>Outperform (매수)</td><td>재확인</td><td class="num">$770</td><td class="num"><span class="up">▲ 24.9%</span></td></tr><tr><td class="firm">Citizens</td><td class="num">2026-09-24</td><td><span class="dot pos"></span>Market Outperform (매수)</td><td>유지</td><td class="num">$770 → $885</td><td class="num"><span class="up">▲ 43.6%</span></td></tr><tr><td class="firm">Keybanc</td><td class="num">2026-09-23</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$780 → $900</td><td class="num"><span class="up">▲ 46.0%</span></td></tr><tr><td class="firm">Cantor Fitzgerald</td><td class="num">2026-09-23</td><td><span class="dot pos"></span>Overweight (매수)</td><td>유지</td><td class="num">$680 → $860</td><td class="num"><span class="up">▲ 39.5%</span></td></tr></tbody></table></div></section><section class="card" id="holders"><header class="card-head"><h2>주요 기관 보유 현황</h2><span class="section-sub">13F 공시 기준일 2026-09-30</span></header><div class="table-wrap"><table><thead><tr><th>기관</th><th>지분율</th><th class="num">보유주식</th><th class="num">평가액</th><th class="num">전 분기 대비</th></tr></thead><tbody><tr><td class="firm">Blackrock Inc.</td><td class="bar-cell"><div class="hbar"><div style="width:100.0%"></div></div><span class="num">7.84%</span></td><td class="num">173.6M</td><td class="num">$107.0B</td><td class="num"><span class="up">▲ 0.1%</span></td></tr><tr><td class="firm">Vanguard Capital Management LLC</td><td class="bar-cell"><div class="hbar"><div style="width:83.2%"></div></div><span class="num">6.52%</span></td><td class="num">144.3M</td><td class="num">$89.0B</td><td class="num"><span class="up">▲ 0.6%</span></td></tr><tr><td class="firm">FMR, LLC</td><td class="bar-cell"><div class="hbar"><div style="width:58.4%"></div></div><span class="num">4.58%</span></td><td class="num">101.4M</td><td class="num">$62.5B</td><td class="num"><span class="up">▲ 5.8%</span></td></tr><tr><td class="firm">State Street Corporation</td><td class="bar-cell"><div class="hbar"><div style="width:53.7%"></div></div><span class="num">4.21%</span></td><td class="num">93.2M</td><td class="num">$57.4B</td><td class="num"><span class="up">▲ 1.2%</span></td></tr><tr><td class="firm">Geode Capital Management, LLC</td><td class="bar-cell"><div class="hbar"><div style="width:31.1%"></div></div><span class="num">2.44%</span></td><td class="num">53.9M</td><td class="num">$33.3B</td><td class="num"><span class="down">▼ 1.8%</span></td></tr><tr><td class="firm">JPMORGAN CHASE &amp; CO</td><td class="bar-cell"><div class="hbar"><div style="width:28.6%"></div></div><span class="num">2.24%</span></td><td class="num">49.6M</td><td class="num">$30.6B</td><td class="num"><span class="up">▲ 8.0%</span></td></tr><tr><td class="firm">Capital Research Global Investors</td><td class="bar-cell"><div class="hbar"><div style="width:24.7%"></div></div><span class="num">1.94%</span></td><td class="num">43.0M</td><td class="num">$26.5B</td><td class="num"><span class="up">▲ 8.6%</span></td></tr><tr><td class="firm">Morgan Stanley</td><td class="bar-cell"><div class="hbar"><div style="width:22.6%"></div></div><span class="num">1.77%</span></td><td class="num">39.2M</td><td class="num">$24.2B</td><td class="num"><span class="down">▼ 0.6%</span></td></tr><tr><td class="firm">Invesco Ltd.</td><td class="bar-cell"><div class="hbar"><div style="width:22.3%"></div></div><span class="num">1.75%</span></td><td class="num">38.7M</td><td class="num">$23.9B</td><td class="num"><span class="up">▲ 1.0%</span></td></tr><tr><td class="firm">Vanguard Portfolio Management LLC</td><td class="bar-cell"><div class="hbar"><div style="width:22.2%"></div></div><span class="num">1.74%</span></td><td class="num">38.6M</td><td class="num">$23.8B</td><td class="num"><span class="up">▲ 0.6%</span></td></tr></tbody></table></div></section><section class="card" id="news"><header class="card-head"><h2>수집된 뉴스</h2><span class="section-sub">최근 24시간 · 30건</span></header><ul class="news"><li><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQY1pIcENNWE1fdjdWTzhuUzdkTUVra21hbzZLbjNFa1ptTm4wSXQ0UTNpUno2bzdueHg4WllFY1BiS09lTEVkMHVJVFl5Q0I4MllsUFJfWFlkM3d5N1BRdUZGRWo1VDdHT2E4RXBIc3dDSThOVDZqQmJyS2I1RUs4ckF5SGc2TUthQVoyUnY0TGV0MUt5eWNaUlVza0NTbDZuMlJCdEg1MUZPVWJRZWg2T25aekNacWNIWS1Z?oc=5" target="_blank" rel="noopener"><span class="news-idx">00</span><span class="news-title">How to Play META Stock as Meta Platforms Tests a New Prediction Markets App</span><span class="news-meta"><span class="lang">EN</span>Barchart.com · 11-18 16:26</span></a></li><li><a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxNbmtKaWdLbjVhcEZCX29DRnotUTcxMEtiMFFiSnV1MTVCazBQYk9jSVhhcEZiWkNoTGxQTElvR1YzSjhVSi1DMmZoeFU4TFNWbUZkTU0tN1ZMUVU1N3RhR1Fad3FrWGpLbVVEcm84UjhPemRxSDhhaEYwWmwtelkxZTFpWHJ1aGt0ak9TVHVVRQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">01</span><span class="news-title">Meta Platforms stock forecast: Seller pressure keeps price below $628.64 resistance</span><span class="news-meta"><span class="lang">EN</span>Traders Union · 11-18 16:52</span></a></li><li><a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxOTE56bXJIU21IU0JOM01GZEs4eGc4VUFVUktYNlpyX09LdGRqVS05cGs5dFMyWEhUT3hYTFlWTU0zRTVDNlY2dHJUZnk0Z1hseUNUQThRa1YwT0VYcmdDeTdpTElNb2h1LXBLUDR4Mzl3dTc0WVpjTU56Z1c1S3F1T0Rzb2QtbWYwQlZTRTlRbWFFQQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">02</span><span class="news-title">Meta Pauses New Stock Plan Amid Legal Challenge</span><span class="news-meta"><span class="lang">EN</span>The Information · 11-18 23:01</span></a></li><li><a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQWk05MjFHYTBIbXVFbHNyT2E3SDNaU0dDX0FYT3E3Z2dnU3diQXd2eG40UFI4SFpSaTZyUElOZ2pFaDZ2aGJGUGw3bU5HdjNLbFFUd1NSamIzdURmRkNjSWN1b1puYnJEZFpTcmxCdHRia3RES1Q3SktVR0NKOGhVSXhWYktiaWJ6SEZuYVlUdFl4SmNwNm9QdXFUallybFV5SVZ2RFN0MHJNYzVISnU1SHRB?oc=5" target="_blank" rel="noopener"><span class="news-idx">03</span><span class="news-title">Meta Pauses Zuckerberg Share Plan During Investor Legal Fight</span><span class="news-meta"><span class="lang">EN</span>Bloomberg.com · 11-18 20:45</span></a></li><li><a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE1JWjFhRmh3YlRNNlNHd0F4bW1NOUc2a2R1R0ZJZ2tBVWFZbXkxeXBDRzZnc3d1S0JJNWhKUUFHQnh1SGljNjlhTV9EOUIzNDItSU5kMGRncmpkQlMxbkxoNGphNm9wV2M5ZlNVMnZNdG9URlRTU2c?oc=5" target="_blank" rel="noopener"><span class="news-idx">04</span><span class="news-title">Meta Shelves Class C Stock Issuance to Preserve Zuckerberg&#x27;s Control as Shareholder Lawsuit Looms</span><span class="news-meta"><span class="lang">EN</span>finance.biggo.com · 11-19 02:35</span></a></li><li><a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxOWmJMYjd0bnAyMVd5U2xRQ09qbGhvM3pDaGxLMnlDd1N4WTNBSVF0eHhHQWhHV3pzZWp0bURXZW03TGk3cEhqWVNwZHpPdVlHelJnMGVjN3hRU2o5eHgtRGNSbGRJcWRHOWk3UUZBUWJQd1dRbGwycVMyTXprWUpDN3prUnlKWExhT3I4Umc5R3lFQVR5elFR?oc=5" target="_blank" rel="noopener"><span class="news-idx">05</span><span class="news-title">Meta’s $225 Billion AI Spending Forecast Comes With a Cash-Flow Question</span><span class="news-meta"><span class="lang">EN</span>Yahoo Finance · 11-18 23:46</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiggFBVV95cUxPajZSNlo0SWlOcDZveElQT1F1MVhGV25iTU5TSlNPY2lMNE9hbTM4cnhQX2d0VXVSd2U0SWFHVVNTTWQ0Z0lkcDVuMDA5dEFKVkw1SGduYW1UajN6bk1KeExydHJqZ1FvVnVFUXFLOF95akZ2Nk11Mk1CYVdDbnB5ZEdR?oc=5" target="_blank" rel="noopener"><span class="news-idx">06</span><span class="news-title">Meta is pausing Class C stock issuance during shareholder lawsuit</span><span class="news-meta"><span class="lang">EN</span>Quartz · 11-18 21:39</span></a></li><li><a href="https://news.google.com/rss/articles/CBMi7AFBVV95cUxPaTd1ZHc3dU12QUgxQWsweWhoWTFZTG9TVkoxVEtadjVuX3lZUUVHSXZrQkFnUzIxZnQxdUJaQnc1WmtNZm1KTmlfbXNuTkRreWdUa08zdjM1OTAtMkJTRVpMYzZyQjIwSUd0ZkVtdksxalpPeWZmRmFPaXdoSkpsUEdsdVh1VFZmUDk5RnczMzNZTGxkemF6Yi1ZZ09VRFVKMnRqdG9vb2Jaam1lYzJlOXF3bWhBeGVBcjdNQXFDMEM0ckltcUtoWTBGYkRMNkstVVpxT0dqbEVmRkcycXpqUk9qU0xFVm9YS0c3Rg?oc=5" target="_blank" rel="noopener"><span class="news-idx">07</span><span class="news-title">The Zacks Analyst Blog Highlights Meta, Amazon&#x27;s, Microsoft&#x27;s and Alphabet&#x27;s</span><span class="news-meta"><span class="lang">EN</span>The Globe and Mail · 11-18 12:56</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNSE5XaWtSYmRNSnRjOWNnclNZRWJsSWI1WGFPSmJhODk3dExuaWhFckxnd3JMSnBoc2p5YzlWZ3Z5bklQRWdtdFprOXNQeXI4S0dRdE9Yalh2Mlo1WnJSVlkzSTJJdExYUldycXF4THh0TEVJMG5kbEYzSXpVSjMwX3J1MVBQbzZSRS1TS3VmbmZueWNKTm1xb3kzcVlMend4VFp3aFFMWXU2WGpsNzlrdXVxQQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">08</span><span class="news-title">Meta: Financial Engineering Masks The Real Debt Burden (NASDAQ:META)</span><span class="news-meta"><span class="lang">EN</span>Seeking Alpha · 11-18 17:25</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOcFpPbmVJbFl1NWpYSmpJbC10ekp5cnlaZ1ZJeUIwbnNBbHdidkFtTDU4WmUzMGFUc1M1TlI5SEJvNHhtLWk3eGQ5MHZaY0luVXFOUWlXVk9icEFVamdLN1hTMzNMY1FaMnRWQVczVE0yUjRDVUk5a0xVUGVhYmRkUlZ2amtwczVUcC12TUwzemhPNi12YlNaVHFCRkpDMUtkRlg4?oc=5" target="_blank" rel="noopener"><span class="news-idx">09</span><span class="news-title">AI Stocks Bull Case: Big Tech Plans Even More AI Spending in 2027</span><span class="news-meta"><span class="lang">EN</span>Benzinga · 11-18 22:54</span></a></li><li><a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxNUlFVc09kMVdqNHNJY3l2emRoSnFWMlA0cFFEcUYyaFJTZnp1b29SeHV0UDE0Nzc3MGo5VG5oU3ZUVVFsakoySGdVTWl2M00wZHNVUjNnbEhBaU9JUk9ueVZ5bTRiLWFWQVE2d0tJT0VVZUhEZFUxd3NZS3hCTUNXMlFfZ09jbDUzN2hRT2g1bF9xQmdCeUZBMm4zeDFvdkNuV2RVYklXbnh2WnRLNDlHaU9VTjdmUDQ4Y3NuQ3k1dFk5ajhlcGpSQ2lUSWNQZw?oc=5" target="_blank" rel="noopener"><span class="news-idx">10</span><span class="news-title">Meta agrees not to issue its new Class C shares while investor lawsuits are pending, with an April trial proposed</span><span class="news-meta"><span class="lang">EN</span>MLQ.ai · 11-18 22:54</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxPc2VtZ09zRXdXNGJ3R29DX1dTUGVxT3AxemZfNElOSmt2dHNJRFpFeTI5RXhoalM3TkgyZFlySndVN3RxZmxvMEZheHR2a3Y4Tk96cHF4UTFGYkNXODZNOVBXcXBPWUYyMjRjalB1VG5PZGpSTzV3a01MdWV1U1UyREFnbXpGR2lTeVhPYU9ZaWlEOEtZUUtjemRxQUdkX21LS29hU3NiZlBHRFhkS3F0MkhIM3pZM0E0Nk5Gd2hDZUt2MmVQek5UOUdB?oc=5" target="_blank" rel="noopener"><span class="news-idx">11</span><span class="news-title">Meta Platforms, Inc. $META Stock Bought by Letko Brosseau &amp; Associates Inc.</span><span class="news-meta"><span class="lang">EN</span>MarketBeat · 11-18 10:11</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiigFBVV95cUxObEFhcm41OVVVQ2taWDNyUmdjX1VXeWxZenVtenR0Ul8tdlZlOEctcjlQR25SSnpRa0c3Wml6ZjBCb3NyMEMwb0RFY0RHX3lnclRfTHQ0cmRjN3hLNU9LbUZtd3JZeVh2OU83SlFTNVBSck1vUEp3ZFpRaUpybTJVb1cwRU9mek9hZ0E?oc=5" target="_blank" rel="noopener"><span class="news-idx">12</span><span class="news-title">Meta Platforms shares weekly forecast: remains defensive after more than 3% drop and negative MACD</span><span class="news-meta"><span class="lang">EN</span>Traders Union · 11-18 14:07</span></a></li><li><a href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxPS3NvS1p0eWJqb2FsaUtDaFdhY3R2dWZJMEFyLUVRMzU2Q3g3Y291WGNDbHF4S3NUS0FwcEFqNXZFWGo2ZFFrY0pmYm15cUxYbU0tNC1qeHNFanFBZjlPeldpdnFOZnZHYWM1ekJIdklfd29LcEdSekx3RDl5Z1JTcVZZQTJtVGluRjJtS2o2QU1kQldYNHpQcl9aS2VFSm5DcVpPNzRyVzNGdUlpUzF5TEJPbktMS2FuS1BJZ2pMUUtnNDZmbGtWMEdGVTJMUkZaOUE?oc=5" target="_blank" rel="noopener"><span class="news-idx">13</span><span class="news-title">Meta Platforms Insider Sold Shares Worth $1,004,132, According to a Recent SEC Filing</span><span class="news-meta"><span class="lang">EN</span>marketscreener.com · 11-18 09:06</span></a></li><li><a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxPMXRmUGJaYUR2Skh5VWU5RUJCendCeWtYZXQ1VmFSTVVNMFpjT3I2UFlUNk1YYU50NTBDS0I2dUtvT2dlVHBlOHhZWm9qR3J1MS1weUJtbmlKd2R0Vm1qQU1Ocm5fUXhYRG1CLVFmb2QzbXVGamFKby1yTWh5YW1NZFNxVHE1dkFoZzhuRUY0YTZndlFJeFFKLXFDdWttNmM?oc=5" target="_blank" rel="noopener"><span class="news-idx">14</span><span class="news-title">Dan Loeb Is Betting Big on Meta</span><span class="news-meta"><span class="lang">EN</span>TIKR.com · 11-18 16:18</span></a></li><li><a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxOLXcwUmhqVTBraTRsbm8wSzRhcmpvdkFQWXYtRnltdlVleGFPMnJrVWI3QWt0ZlM3dndqUWM3Vkw4dk1kVVNQUWFrZUlKX2h1ZWtNUHVZd2l1QUFFeDJHT3JOOUlZeHhEcGpZUEFXbW95MnE3YTB0OHVKM0FmUTF2M3pkYURrelFEQ0tyeHA0RTlqV0U?oc=5" target="_blank" rel="noopener"><span class="news-idx">15</span><span class="news-title">메타 주가 전망: 매도세 압박에 628.64달러 저항선 아래 머물러</span><span class="news-meta"><span class="lang">KR</span>Traders Union · 11-18 16:52</span></a></li><li><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNd01vYnJqSDRGTWhncWlCUWM4dENnaGZNSFo0LW9mcW54UGluZi0wanN2blM4SVNlZ0VrRGdvYVJIbFJQWDJZTm5zWVRsR1RKY0ZQVHJSNkVlVExZLU1PbTRneDlkTWQ5UjFmZmpVTmFwRmp3VkhMWUxicFl4eVJBOQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">16</span><span class="news-title">[美특징주]1000만 다운로드한 메타 &#x27;뮤즈&#x27; 개인정보 유출 우려…하락 마감</span><span class="news-meta"><span class="lang">KR</span>이데일리 · 11-18 22:26</span></a></li><li><a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPbU9GekFkaTJZU3VRc1ZqZ24xYkp0WTBsMFk4ZVBwT2JxTDduYlNoMjVsQkdxYnhrMWpxR1pjNVRZZGpkMVp4akFDMl9OMHRWU3NoY05aV1FLX2dKaWtxZHlJbUhzdnBOWW4td1h3U3VmRUVYclRkaS1ITWVCeXh5R2xJUXBiYi1PUk1sRDllMHJKdw?oc=5" target="_blank" rel="noopener"><span class="news-idx">17</span><span class="news-title">Meta, AI 자금 조달 소송 진행 중 클래스 C 주식 발행 중단에 합의</span><span class="news-meta"><span class="lang">KR</span>Unite.AI · 11-18 22:02</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiiwFBVV95cUxQTE5IbWhqczkweENpa3I3Q3RWcW84SEdJMjBWVVhqZnpfaEkwSzd3MG5OcmpiaHI3WHRwTko2WnZKOUdJWFlJd08yLXphMS1GVjN1NGZNdVV1d3R3bkVwU21ObVJ2dHBVbGhkc29nSnZNckozTHpTekJlTFZSZ1l0eVRDUGJreEVkODM0?oc=5" target="_blank" rel="noopener"><span class="news-idx">18</span><span class="news-title">젠슨 황·저커버그 운명 가른 ‘차등 의결권’</span><span class="news-meta"><span class="lang">KR</span>조선일보 · 11-18 15:35</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiSkFVX3lxTE9XRG1MdjdxYm1rUW0yVXVobWNIYzZDV05rb3VlOW14ODlVVE9EaG9XRllwUEpwNGhzeXlLay1JN19YLUtLZ0hsVVlB?oc=5" target="_blank" rel="noopener"><span class="news-idx">19</span><span class="news-title">UBS &quot;메타(META) 지금이 매수 기회&quot;...목표주가 815달러 제시</span><span class="news-meta"><span class="lang">KR</span>코인리더스 · 11-18 09:00</span></a></li><li><a href="https://news.google.com/rss/articles/CBMibEFVX3lxTFBLLTQzb1pZam9pTm5QTXhNc0trU1dDZ25RMnFHQzNqT205STRTbTZ2dDl5TG4zTnhLTy1zczNIcUIwcGtNRm9iUUdNN1YzOXNiTTllXzdFaGRPbndkQkxhb0ZoWjdiMFhBbHloeQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">20</span><span class="news-title">[재무제표 이야기] 컴투스 명암 엇갈린 10년...미래는</span><span class="news-meta"><span class="lang">KR</span>생생비즈플러스 · 11-18 21:00</span></a></li><li><a href="https://news.google.com/rss/articles/CBMijgFBVV95cUxQaUdSdEc5cUdWOGlyOTZiV1pVRFQ4LVdnMnYxV1JYbTIxai1xeXNST0RwUFRtazRaLVlxMVRmck9SbGRwQ0JpRDh5VzJKa1VFZjlTYVRJd1RPc29QbGNiWHdvZElWYTF2ajQ4aERoY05GOVJZaGxKdFhpNUo3REdTX0ZMbE1BWmNDc2tPYWZR?oc=5" target="_blank" rel="noopener"><span class="news-idx">21</span><span class="news-title">메타 주간 전망: 3% 넘게 하락하고 MACD가 약세를 보인 뒤에도 방어적 흐름 유지</span><span class="news-meta"><span class="lang">KR</span>Traders Union · 11-18 14:07</span></a></li><li><a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxNOHlJZWRuUFJ2S080RmRZNGtxa0VZbVhPZjlZcGpMdXZLNEJkU3prTWd4Ui1adGtwMkNjV2VrRk0xSGRIRDR6aUp6bWljcnRqX3Z1d1VLLUc4QXA2TW5yZ05HY3lHZ1gyam5KRXFPeGphVWY0MndhY3QyT3NEZk9ydVFZZ2M?oc=5" target="_blank" rel="noopener"><span class="news-idx">22</span><span class="news-title">Brad Gerstner Is Betting Big on Meta</span><span class="news-meta"><span class="lang">KR</span>TIKR.com · 11-18 15:32</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiSkFVX3lxTE9ob0doRkxkR3VnemhtVU5TM2cxUmJuSzYzVEdwZXVsb1pwbUNkaXkzRGprbVpnMk9QLVd0LWZzaFdzWnYtUGFxNV9B?oc=5" target="_blank" rel="noopener"><span class="news-idx">23</span><span class="news-title">비트코인(BTC), 200주선 올해 두 번째 붕괴...2022년 재현?</span><span class="news-meta"><span class="lang">KR</span>코인리더스 · 11-18 20:00</span></a></li><li><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxQR1pVZy1wY3MxaVpmNGUtNTFtWW53ZXlCaG1wNXMxNzRzc2txUmxOMzIydXpjdmpseWQ5ZDRxdXlZZ09BbjRhQVo5cjBJajQ2VmROeTA4ZHB2TXFjdmk2Y252di1WdVlRY05BcTk3b0Y4VWpZdUF4Q042QWVSVVVZRQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">24</span><span class="news-title">[오늘장특징주]엔비디아, 앤스로픽, 메타</span><span class="news-meta"><span class="lang">KR</span>이데일리 · 11-18 22:36</span></a></li><li><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE54V2djSkpLMDB2N1c5UFBRaFZGOGx6aHN2SGFUSHdhZV84cjJMUTdlNTFkc2RlOXZEU2ItcklKdk8tdXVyejVxT05kTG4yTW5valVvRUpJaDNJMklzaEJ5S1Fic3Jlc01nZnRTRkl5NkFHRFpPTFJIWF81dVFCNnM?oc=5" target="_blank" rel="noopener"><span class="news-idx">25</span><span class="news-title">테이크투 주가 7% 급등…GTA 6 ‘명작’ 평가</span><span class="news-meta"><span class="lang">KR</span>BeInCrypto · 11-19 03:00</span></a></li><li><a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxOcUtONmc4TUVRdEJybVowdVZKUTFUZVFTTnZZUGhoUVJkWXV0bG8xQnBkUXVTcXVRaVBsbTVwVFRoZjAwY0s5V0dPZnd3N29HM01PY01ENlVhRER4RFd0Ym5sV1RoNmZDQjZvVC1uUmMwU1pQVjltMFB0anF6SFlYSmNkNmg5d0xyc3FwQWV3VzE5Ml9Cc2RVOXFsUXFNUXl1VFpqSVZSVEJBOXlDMXZsRWJlREh1VmNFSjhFVDdGaHFYZ3RZRExvQVFlM3NuZw?oc=5" target="_blank" rel="noopener"><span class="news-idx">26</span><span class="news-title">주식: 엔비디아 실적에 매도세 이후 투자심리 개선 - 도이체방크</span><span class="news-meta"><span class="lang">KR</span>www.tmgm.com · 11-18 15:49</span></a></li><li><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNMVhNWTdUeDZiZUhud2RiWkhpdVM4bmhTZGMxUDhMc09jQWx4cUpFYlpJLWtjZ0ZTOW5GVjd4MWFiRGtlcGM0NUotOXZZUWJ5cXpoVDBFSzNnajRYQVVCTW9lZHpkTkNlMmYtR18yS2ZERnF6T1dlajUybkxCVmFGZNIBlAFBVV95cUxPd2x5WGloUFRDLXdTYzBYUlpsb0pDeElBTzBaN09FalJXZWVCanZ5VFB4RHBnY0xpelJxVC1uQzhEaHZjYWFpMkRYaTZ2QWR1MjRDdUh4b0hQLTVaX1JSbjgycklmMkkzNG5nNWgzTGhIZkF0YUM1eVNfZjY0cXV1eW1qSm51bjV6OXBtaVN6WG9raGIw?oc=5" target="_blank" rel="noopener"><span class="news-idx">27</span><span class="news-title">원금 보장에 추가 수익 기대… 은행 ‘주가연동예금’ 인기</span><span class="news-meta"><span class="lang">KR</span>Chosunbiz · 11-19 05:43</span></a></li><li><a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE5qWFBPSlBDWTZlX3F0Zkc3eThuaHgweTBLVVU0SGRmM2JINmhrWGxrVldDbGNtdy1aX1VNV1h2S2lYd2tISUozQTRiaHBPUGpEaTlIYXdkaTUwYS03ZzZDUmtUSVlJeUN3azEzaFpsd0U2bzQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">28</span><span class="news-title">강세 종목(BLSH): ‘강세’란 무엇이며, 왜 암호화폐 거래에서 중요한가?</span><span class="news-meta"><span class="lang">KR</span>VT Markets · 11-18 12:17</span></a></li><li><a href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxNUFpneDNWd2tBX2hsem1ESHQ1WlF5VVFPTFEzNTQyaGNYOFlISHhrQUQ5cnNKRWNYX0l2WmdTUEctYlNGTGNuMjJrWHJWVURhbERtRFAtNjRXZ0xiR0JUN2tFREVGdWdaVUtEeklydHBHSWFrRS1KVkVLZ1hXSmstWXhiUVhhVUdJTXh4d3pCU1JoMWlCY1otUFc3Tk9HMkdwT0pnSlZ3cUFBNFZWeVRxUGt4UjNhUkMwWUFnbUNlYV84MktXeVByLWYwS0dwYVF6RC1IMXVB?oc=5" target="_blank" rel="noopener"><span class="news-idx">29</span><span class="news-title">다우존스 선물, 엔비디아 실적 발표 앞두고 투자자 경계감에 하락</span><span class="news-meta"><span class="lang">KR</span>www.tmgm.com · 11-18 11:52</span></a></li></ul></section>
+<footer class="foot">생성 2026-11-19 16:41 · 데이터: Yahoo Finance, Google News<br>
+EPS·재무제표는 Yahoo Finance 분기 데이터(GAAP 기준, 영업외손익 포함) 그대로이며, 회사 발표 자료와 반올림·분류 차이가 있을 수 있습니다.<br>
+본 리포트는 정보 제공용이며 투자 권유가 아닙니다. 실적 요약·긍정/우려 요인은 재무 데이터로 자동 작성한 것입니다.</footer>
+</div>
+<script>(function () {
+  "use strict";
+  var dataEl = document.getElementById("chart-data");
+  if (!dataEl) return;  // 상장 전처럼 주가 데이터가 없으면 차트 없음
+  var rows = JSON.parse(dataEl.textContent);
+  var root = document.getElementById("price-chart");
+  var tip = document.getElementById("chart-tip");
+  var SERIES = [
+    { key: "c", name: "종가", cls: "s1", width: 2 },
+    { key: "ma20", name: "20일 이동평균", cls: "s2", width: 1.5 },
+    { key: "ma60", name: "60일 이동평균", cls: "s3", width: 1.5 }
+  ];
+  var visible = { c: true, ma20: true, ma60: true };
+  var WEEK = "일월화수목금토";
+  var g = null;      // 마지막으로 그린 좌표계
+  var active = null; // 현재 선택된 인덱스
+
+  function money(v) { return v == null ? "-" : "$" + v.toFixed(2); }
+  function volText(v) { return (v / 1e6).toFixed(1) + "M"; }
+
+  function niceTicks(min, max, count) {
+    var raw = (max - min) / count;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var step = [1, 2, 2.5, 5, 10].map(function (m) { return m * mag; }).filter(function (s) { return s >= raw; })[0];
+    var out = [];
+    for (var v = Math.ceil(min / step) * step; v <= max + 1e-9; v += step) out.push(+v.toFixed(6));
+    return out;
+  }
+
+  function draw() {
+    var W = root.clientWidth, H = root.clientHeight;
+    if (!W || !H) return;
+    var L = 4, R = 58, T = 12;
+    var volH = Math.round(H * 0.16), gap = 26, axisH = 22;
+    var priceB = H - axisH - volH - gap;          // 가격 패널 하단
+    var volT = priceB + gap, volB = H - axisH;     // 거래량 패널
+    var n = rows.length, step = (W - L - R) / (n - 1);
+    function X(i) { return L + i * step; }
+
+    // y 범위: 보이는 선 기준
+    var lo = Infinity, hi = -Infinity;
+    rows.forEach(function (r) {
+      SERIES.forEach(function (s) {
+        var v = r[s.key];
+        if (visible[s.key] && v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
+      });
+    });
+    if (!isFinite(lo)) { lo = 0; hi = 1; }
+    var pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+    function Y(v) { return T + (hi - v) / (hi - lo) * (priceB - T); }
+    var vmax = Math.max.apply(null, rows.map(function (r) { return r.v; }));
+    function VY(v) { return volB - v / vmax * (volB - volT); }
+
+    var s = [];
+    s.push('<svg width="' + W + '" height="' + H + '" aria-hidden="true">');
+    s.push('<defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">' +
+           '<stop offset="0" class="grad-top"/><stop offset="1" class="grad-bot"/></linearGradient></defs>');
+
+    // 가로 그리드 + y 라벨
+    niceTicks(lo, hi, 5).forEach(function (t) {
+      var y = Y(t);
+      if (y < T - 1 || y > priceB + 1) return;
+      s.push('<line class="gridline" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/>');
+      s.push('<text class="tick" x="' + (W - R + 8) + '" y="' + (y + 4) + '">$' + t.toFixed(0) + '</text>');
+    });
+    s.push('<line class="baseline" x1="' + L + '" x2="' + (W - R) + '" y1="' + volB + '" y2="' + volB + '"/>');
+    s.push('<text class="panel-label" x="' + L + '" y="' + (volT - 8) + '">거래량</text>');
+    s.push('<text class="tick" x="' + (W - R + 8) + '" y="' + (volT + 8) + '">' + volText(vmax) + '</text>');
+
+    // x 라벨: 월 시작
+    var minGap = 46, lastX = -Infinity;
+    rows.forEach(function (r, i) {
+      var prev = rows[i - 1];
+      if (i === 0 || r.d.slice(0, 7) === prev.d.slice(0, 7)) return;
+      var x = X(i);
+      if (x - lastX < minGap || x > W - R - 20) return;
+      lastX = x;
+      var m = +r.d.slice(5, 7);
+      var label = m === 1 ? r.d.slice(0, 4) + "년" : m + "월";
+      s.push('<line class="gridline" x1="' + x + '" x2="' + x + '" y1="' + volB + '" y2="' + (volB + 4) + '"/>');
+      s.push('<text class="tick" text-anchor="middle" x="' + x + '" y="' + (H - 4) + '">' + label + '</text>');
+    });
+
+    // 거래량 막대
+    var bw = Math.max(1, Math.min(6, step * 0.65));
+    rows.forEach(function (r, i) {
+      var y = VY(r.v);
+      s.push('<rect class="vol" data-i="' + i + '" x="' + (X(i) - bw / 2) + '" y="' + y + '" width="' + bw +
+             '" height="' + Math.max(0.5, volB - y) + '" rx="' + Math.min(1.5, bw / 2) + '"/>');
+    });
+
+    // 종가 영역 + 선
+    function path(key) {
+      var d = "", pen = false;
+      rows.forEach(function (r, i) {
+        var v = r[key];
+        if (v == null) { pen = false; return; }
+        d += (pen ? "L" : "M") + X(i).toFixed(1) + " " + Y(v).toFixed(1);
+        pen = true;
+      });
+      return d;
+    }
+    if (visible.c) {
+      s.push('<path class="area" d="' + path("c") + "L" + X(n - 1) + " " + priceB + "L" + X(0) + " " + priceB + 'Z"/>');
+    }
+    SERIES.slice().reverse().forEach(function (sr) {
+      if (!visible[sr.key]) return;
+      s.push('<path class="line ' + sr.cls + '" stroke-width="' + sr.width + '" d="' + path(sr.key) + '"/>');
+    });
+
+    // 마지막 종가 태그
+    if (visible.c) {
+      var last = rows[n - 1], ly = Y(last.c);
+      s.push('<g class="last-tag"><rect x="' + (W - R + 2) + '" y="' + (ly - 10) + '" width="' + (R - 4) +
+             '" height="20" rx="5"/><text x="' + (W - R + 8) + '" y="' + (ly + 4) + '">$' + last.c.toFixed(1) + '</text></g>');
+    }
+
+    // 크로스헤어 레이어
+    s.push('<g id="cross" style="display:none"><line class="cross" y1="' + T + '" y2="' + volB + '"/>');
+    SERIES.forEach(function (sr) { s.push('<circle class="pt ' + sr.cls + '" data-k="' + sr.key + '" r="4.5"/>'); });
+    s.push('</g></svg>');
+    root.innerHTML = s.join("");
+    g = { X: X, Y: Y, step: step, L: L, R: R, W: W, n: n };
+    if (active != null) show(active);
+  }
+
+  function tipRow(label, value, cls) {
+    var row = document.createElement("div");
+    row.className = "tip-row";
+    var a = document.createElement("span");
+    if (cls) { var k = document.createElement("i"); k.className = "key " + cls; a.appendChild(k); }
+    a.appendChild(document.createTextNode(label));
+    var b = document.createElement("b");
+    b.textContent = value;
+    row.appendChild(a); row.appendChild(b);
+    return row;
+  }
+
+  function show(i) {
+    if (!g) return;
+    active = i;
+    var r = rows[i], prev = rows[i - 1], x = g.X(i);
+    var cross = root.querySelector("#cross");
+    cross.style.display = "";
+    var line = cross.querySelector("line");
+    line.setAttribute("x1", x); line.setAttribute("x2", x);
+    cross.querySelectorAll("circle").forEach(function (c) {
+      var v = r[c.getAttribute("data-k")];
+      var on = visible[c.getAttribute("data-k")] && v != null;
+      c.style.display = on ? "" : "none";
+      if (on) { c.setAttribute("cx", x); c.setAttribute("cy", g.Y(v)); }
+    });
+    root.querySelectorAll("rect.vol.on").forEach(function (b) { b.classList.remove("on"); });
+    var bar = root.querySelector('rect.vol[data-i="' + i + '"]');
+    if (bar) bar.classList.add("on");
+
+    // 툴팁 내용 (값이 먼저, 이름은 보조)
+    tip.textContent = "";
+    var dt = new Date(r.d + "T00:00:00");
+    var head = document.createElement("div");
+    head.className = "tip-date";
+    head.textContent = r.d.replace(/-/g, ".") + " (" + WEEK[dt.getDay()] + ")";
+    var price = document.createElement("div");
+    price.className = "tip-price";
+    price.textContent = money(r.c);
+    if (prev) {
+      var chg = (r.c / prev.c - 1) * 100, sm = document.createElement("small");
+      sm.className = chg > 0 ? "up" : chg < 0 ? "down" : "flat";
+      sm.textContent = (chg > 0 ? "▲ " : chg < 0 ? "▼ " : "") + Math.abs(r.c - prev.c).toFixed(2) +
+                       " (" + (chg >= 0 ? "+" : "") + chg.toFixed(2) + "%)";
+      price.appendChild(sm);
+    }
+    tip.appendChild(head); tip.appendChild(price);
+    tip.appendChild(tipRow("시가", money(r.o)));
+    tip.appendChild(tipRow("고가", money(r.h)));
+    tip.appendChild(tipRow("저가", money(r.l)));
+    tip.appendChild(document.createElement("hr"));
+    if (visible.ma20) tip.appendChild(tipRow("20일 이동평균", money(r.ma20), "s2"));
+    if (visible.ma60) tip.appendChild(tipRow("60일 이동평균", money(r.ma60), "s3"));
+    tip.appendChild(tipRow("거래량", volText(r.v)));
+    tip.hidden = false;
+
+    // 위치: 커서 오른쪽, 넘치면 왼쪽
+    var tw = tip.offsetWidth, left = x + 16;
+    if (left + tw > root.clientWidth) left = x - tw - 16;
+    tip.style.transform = "translate(" + Math.max(0, left) + "px, 8px)";
+  }
+
+  function hide() {
+    active = null;
+    tip.hidden = true;
+    var cross = root.querySelector("#cross");
+    if (cross) cross.style.display = "none";
+    root.querySelectorAll("rect.vol.on").forEach(function (b) { b.classList.remove("on"); });
+  }
+
+  function indexAt(clientX) {
+    var rect = root.getBoundingClientRect();
+    var i = Math.round((clientX - rect.left - g.L) / g.step);
+    return Math.max(0, Math.min(g.n - 1, i));
+  }
+
+  root.addEventListener("pointermove", function (ev) { if (g) show(indexAt(ev.clientX)); });
+  root.addEventListener("pointerdown", function (ev) { if (g) show(indexAt(ev.clientX)); });
+  root.addEventListener("pointerleave", hide);
+  root.addEventListener("focus", function () { show(active == null ? rows.length - 1 : active); });
+  root.addEventListener("blur", hide);
+  root.addEventListener("keydown", function (ev) {
+    var i = active == null ? rows.length - 1 : active;
+    if (ev.key === "ArrowLeft") i -= ev.shiftKey ? 5 : 1;
+    else if (ev.key === "ArrowRight") i += ev.shiftKey ? 5 : 1;
+    else if (ev.key === "Home") i = 0;
+    else if (ev.key === "End") i = rows.length - 1;
+    else return;
+    ev.preventDefault();
+    show(Math.max(0, Math.min(rows.length - 1, i)));
+  });
+
+  document.querySelectorAll(".legend-item").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var k = btn.getAttribute("data-key");
+      var on = Object.keys(visible).filter(function (key) { return visible[key]; });
+      if (visible[k] && on.length === 1) return; // 최소 1개는 표시
+      visible[k] = !visible[k];
+      btn.setAttribute("aria-pressed", String(visible[k]));
+      draw();
+    });
+  });
+
+  if (window.ResizeObserver) new ResizeObserver(draw).observe(root);
+  else window.addEventListener("resize", draw);
+  draw();
+})();
+
+(function () {
+  "use strict";
+  // 분기별 EPS: 막대 = 실제(희석 EPS), 마름모 = 컨센서스, 점선 막대 = 발표 예정 분기(컨센서스만)
+  var dataEl = document.getElementById("eps-data");
+  if (!dataEl) return;
+  var rows = JSON.parse(dataEl.textContent);
+  var root = document.getElementById("eps-chart");
+  var tip = document.getElementById("eps-tip");
+  var g = null, active = null;
+
+  function money(v) { return v == null ? "-" : "$" + v.toFixed(2); }
+
+  function niceStep(max) {
+    var raw = max / 5, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    return [1, 2, 2.5, 5, 10].map(function (m) { return m * mag; }).filter(function (s) { return s >= raw; })[0];
+  }
+
+  function draw() {
+    var W = root.clientWidth, H = root.clientHeight;
+    if (!W || !H) return;
+    var L = 8, R = 48, T = 22, B = 30;
+    var n = rows.length, slot = (W - L - R) / n, bw = Math.max(8, Math.min(42, slot * 0.55));
+    var hi = 0;
+    rows.forEach(function (r) { hi = Math.max(hi, r.act || 0, r.est || 0); });
+    var step = niceStep(hi * 1.1 || 1), top = Math.ceil(hi * 1.12 / step) * step;
+    function Y(v) { return T + (top - v) / top * (H - T - B); }
+    function X(i) { return L + slot * (i + 0.5); }
+    var s = ['<svg width="' + W + '" height="' + H + '" aria-hidden="true">'];
+    for (var t = 0; t <= top + 1e-9; t += step) {
+      var y = Y(t);
+      s.push('<line class="' + (t === 0 ? "baseline" : "gridline") + '" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/>');
+      s.push('<text class="tick" x="' + (W - R + 8) + '" y="' + (y + 4) + '">$' + (+t.toFixed(2)) + '</text>');
+    }
+    rows.forEach(function (r, i) {
+      var x = X(i), base = Y(0);
+      if (r.act != null) {
+        var y = Y(r.act), beat = r.est != null && r.act >= r.est;
+        s.push('<rect class="eps-bar' + (beat ? "" : " miss") + '" data-i="' + i + '" x="' + (x - bw / 2) + '" y="' + y + '" width="' + bw +
+               '" height="' + Math.max(1, base - y) + '" rx="3"/>');
+        s.push('<text class="eps-val" text-anchor="middle" x="' + x + '" y="' + (y - 6) + '">' + r.act.toFixed(2) + '</text>');
+      } else if (r.est != null) {
+        var ye = Y(r.est);
+        s.push('<rect class="eps-bar future" data-i="' + i + '" x="' + (x - bw / 2) + '" y="' + ye + '" width="' + bw +
+               '" height="' + Math.max(1, base - ye) + '" rx="3"/>');
+        s.push('<text class="eps-val muted" text-anchor="middle" x="' + x + '" y="' + (ye - 6) + '">예상 ' + r.est.toFixed(2) + '</text>');
+      }
+      if (r.est != null && r.act != null) {
+        var yy = Y(r.est), d = 5;
+        s.push('<path class="eps-est" d="M' + x + ' ' + (yy - d) + 'L' + (x + d) + ' ' + yy + 'L' + x + ' ' + (yy + d) + 'L' + (x - d) + ' ' + yy + 'Z"/>');
+      }
+      s.push('<text class="tick" text-anchor="middle" x="' + x + '" y="' + (H - 10) + '">' + r.ql + '</text>');
+    });
+    s.push("</svg>");
+    root.innerHTML = s.join("");
+    g = { slot: slot, L: L, n: n, X: X };
+    if (active != null) show(active);
+  }
+
+  function row(label, value, cls) {
+    var d = document.createElement("div"); d.className = "tip-row";
+    var a = document.createElement("span"); a.textContent = label;
+    var b = document.createElement("b"); b.textContent = value; if (cls) b.className = cls;
+    d.appendChild(a); d.appendChild(b); return d;
+  }
+
+  function show(i) {
+    active = i;
+    var r = rows[i];
+    root.querySelectorAll("rect.eps-bar.on").forEach(function (b) { b.classList.remove("on"); });
+    var bar = root.querySelector('rect.eps-bar[data-i="' + i + '"]'); if (bar) bar.classList.add("on");
+    tip.textContent = "";
+    var h = document.createElement("div"); h.className = "tip-date"; h.textContent = r.q + " · 발표 " + r.date.replace(/-/g, ".");
+    var p = document.createElement("div"); p.className = "tip-price";
+    p.textContent = r.act != null ? money(r.act) : "발표 예정";
+    tip.appendChild(h); tip.appendChild(p);
+    tip.appendChild(row("컨센서스", money(r.est)));
+    if (r.sur != null) tip.appendChild(row("서프라이즈", (r.sur >= 0 ? "+" : "") + r.sur.toFixed(1) + "%", r.sur >= 0 ? "up" : "down"));
+    tip.hidden = false;
+    var x = g.X(i), tw = tip.offsetWidth, left = x + 14;
+    if (left + tw > root.clientWidth) left = x - tw - 14;
+    tip.style.transform = "translate(" + Math.max(0, left) + "px, 8px)";
+  }
+
+  function hide() {
+    active = null; tip.hidden = true;
+    root.querySelectorAll("rect.eps-bar.on").forEach(function (b) { b.classList.remove("on"); });
+  }
+
+  root.addEventListener("pointermove", function (ev) {
+    if (!g) return;
+    var rect = root.getBoundingClientRect();
+    var i = Math.floor((ev.clientX - rect.left - g.L) / g.slot);
+    if (i >= 0 && i < g.n) show(i); else hide();
+  });
+  root.addEventListener("pointerleave", hide);
+  root.addEventListener("focus", function () { show(active == null ? rows.length - 1 : active); });
+  root.addEventListener("blur", hide);
+  root.addEventListener("keydown", function (ev) {
+    var i = active == null ? rows.length - 1 : active;
+    if (ev.key === "ArrowLeft") i--; else if (ev.key === "ArrowRight") i++; else return;
+    ev.preventDefault(); show(Math.max(0, Math.min(rows.length - 1, i)));
+  });
+  if (window.ResizeObserver) new ResizeObserver(draw).observe(root); else window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+<script>(function(){var s=document.querySelector(".sb"),d=document.querySelector(".sb-dim");
+document.querySelectorAll(".menu-btn").forEach(function(b){b.onclick=function(){s.classList.add("open")}});
+d.onclick=function(){s.classList.remove("open")};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")s.classList.remove("open")});})();</script></body></html>

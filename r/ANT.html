@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#2a78d6"><link rel="manifest" href="../manifest.webmanifest"><link rel="apple-touch-icon" href="../apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="빅테크 리포트"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>ANT 일일 리포트 · 2026-11-19</title>
+<style>:root {
+  color-scheme: light;
+  --page: #f4f4f1;
+  --surface: #ffffff;
+  --surface-2: #f7f7f5;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #ecebe6;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.08);
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.04), 0 4px 16px rgba(11, 11, 11, 0.04);
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --vol: #d6d5ce;
+  --up: #d03b3b;
+  --down: #1c5cab;
+  --pos-bg: #fdecec;
+  --neg-bg: #e8f0fb;
+  --neu-bg: #efefec;
+  --accent: #2a78d6;
+  --accent-soft: #eaf2fc;
+  --g0: #a32a2a;
+  --g1: #e06464;
+  --g2: #b9b8b0;
+  --g3: #5598e7;
+  --g4: #1c5cab;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --surface-2: #222220;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.08);
+    --shadow: none;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --vol: #3a3a37;
+    --up: #f07070;
+    --down: #6da7ec;
+    --pos-bg: #3a1d1d;
+    --neg-bg: #182a42;
+    --neu-bg: #2a2a28;
+    --accent: #3987e5;
+    --accent-soft: #182a42;
+    --g0: #e66767;
+    --g1: #a84848;
+    --g2: #5c5c57;
+    --g3: #3e6fae;
+    --g4: #86b6ef;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --surface-2: #222220; --ink: #f0efec; --ink-2: #c3c2b7;
+  --muted: #898781; --grid: #2c2c2a; --axis: #383835; --border: rgba(255, 255, 255, 0.08); --shadow: none;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --vol: #3a3a37; --up: #f07070; --down: #6da7ec;
+  --pos-bg: #3a1d1d; --neg-bg: #182a42; --neu-bg: #2a2a28; --accent: #3987e5; --accent-soft: #182a42;
+  --g0: #e66767; --g1: #a84848; --g2: #5c5c57; --g3: #3e6fae; --g4: #86b6ef;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font-family: "Pretendard", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+a { color: inherit; }
+h2, h3 { margin: 0; letter-spacing: -0.01em; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--muted); }
+
+/* ---------- hero */
+.hero {
+  display: grid; grid-template-columns: 1fr minmax(240px, 340px); gap: 32px; align-items: end;
+  padding: 8px 4px 24px;
+}
+.eyebrow { display: flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 14px; font-weight: 600; }
+.chip {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; margin: 6px 0 2px; }
+.price { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+.change { font-size: 20px; font-weight: 700; }
+.hero-range { padding-bottom: 6px; }
+.range-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.range-label.strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.range-track { position: relative; height: 6px; border-radius: 3px; background: var(--grid); margin: 8px 0; }
+.range-fill { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: linear-gradient(90deg, var(--g3), var(--g1)); opacity: 0.55; }
+.range-dot {
+  position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; transform: translate(-50%, -50%);
+  background: var(--ink); border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border);
+}
+
+/* ---------- KPI */
+.kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+.kpi-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+.kpi-value { font-size: 20px; font-weight: 700; margin-top: 2px; white-space: nowrap; }
+.kpi-sub { font-size: 12px; color: var(--ink-2); min-height: 1em; }
+
+.toc { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0 16px; position: sticky; top: 0; z-index: 5;
+  padding: 8px 0; background: var(--page); }
+.toc a { text-decoration: none; font-size: 13px; font-weight: 600; color: var(--ink-2); padding: 6px 12px;
+  border-radius: 999px; background: var(--surface); border: 1px solid var(--border); }
+.toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- cards */
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 22px 24px;
+  margin-bottom: 16px; box-shadow: var(--shadow); scroll-margin-top: 60px;
+}
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.card-head h2 { font-size: 19px; font-weight: 800; }
+.section-sub { font-size: 12px; color: var(--muted); }
+.sub-title { font-size: 15px; font-weight: 700; margin: 24px 0 8px; display: flex; align-items: center; gap: 8px; }
+.count { font-size: 12px; font-weight: 700; background: var(--neu-bg); color: var(--ink-2); padding: 1px 8px; border-radius: 999px; }
+.empty { display: flex; flex-direction: column; gap: 2px; padding: 18px; border-radius: 12px; background: var(--surface-2); color: var(--ink-2); font-size: 14px; }
+
+/* ---------- chart */
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; margin-bottom: 8px; }
+.legend-item {
+  display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 13px; color: var(--ink-2);
+  background: none; border: 1px solid transparent; border-radius: 8px; padding: 4px 10px; cursor: pointer;
+}
+.legend-item:hover { background: var(--surface-2); }
+.legend-item[aria-pressed="false"] { opacity: 0.4; }
+.legend-item[aria-pressed="false"] .key { background: var(--muted) !important; }
+.legend-hint { margin-left: auto; font-size: 12px; color: var(--muted); }
+.key { display: inline-block; width: 16px; height: 3px; border-radius: 2px; }
+.key.s1 { background: var(--s1); } .key.s2 { background: var(--s2); } .key.s3 { background: var(--s3); }
+.chart-wrap { position: relative; }
+.chart { width: 100%; height: 430px; outline: none; touch-action: pan-y; }
+.chart:focus-visible { box-shadow: 0 0 0 2px var(--accent); border-radius: 8px; }
+.chart svg { display: block; overflow: visible; }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .baseline { stroke: var(--axis); stroke-width: 1; }
+.chart .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.chart .line { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.chart .s1 { stroke: var(--s1); } .chart .s2 { stroke: var(--s2); } .chart .s3 { stroke: var(--s3); }
+.chart .area { fill: url(#areaGrad); }
+.chart .grad-top { stop-color: var(--s1); stop-opacity: 0.18; }
+.chart .grad-bot { stop-color: var(--s1); stop-opacity: 0; }
+.chart .vol { fill: var(--vol); }
+.chart .vol.on { fill: var(--s1); }
+.chart .cross { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.chart .pt { stroke: var(--surface); stroke-width: 2; }
+.chart .pt.s1 { fill: var(--s1); } .chart .pt.s2 { fill: var(--s2); } .chart .pt.s3 { fill: var(--s3); }
+.chart .last-tag rect { fill: var(--s1); }
+.chart .last-tag text { fill: #fff; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chart .panel-label { fill: var(--muted); font-size: 11px; font-weight: 600; }
+
+.tip {
+  position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10; min-width: 190px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 12px;
+  padding: 10px 12px; font-size: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+.tip-date { color: var(--muted); font-weight: 600; }
+.tip-price { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; margin: 2px 0 6px; }
+.tip-price small { font-size: 12px; font-weight: 700; margin-left: 6px; }
+.tip-row { display: flex; justify-content: space-between; gap: 16px; padding: 1px 0; }
+.tip-row span:first-child { color: var(--ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.tip-row b { font-variant-numeric: tabular-nums; font-weight: 700; }
+.tip hr { border: 0; border-top: 1px solid var(--grid); margin: 6px 0; }
+
+/* ---------- AI */
+.overview { margin: 0 0 16px; padding: 16px 18px; border-radius: 12px; background: var(--accent-soft); line-height: 1.7; font-size: 15px; }
+.issue { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--grid); }
+.issue-num { font-size: 13px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.issue-body { flex: 1; }
+.issue-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.issue-head h3 { font-size: 15px; font-weight: 700; }
+.issue p { margin: 6px 0 8px; color: var(--ink-2); line-height: 1.7; }
+.tone { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; }
+.tone.pos { background: var(--pos-bg); color: var(--up); }
+.tone.neg { background: var(--neg-bg); color: var(--down); }
+.tone.neu { background: var(--neu-bg); color: var(--ink-2); }
+.refs { display: flex; flex-wrap: wrap; gap: 6px; }
+.ref { font-size: 12px; text-decoration: none; color: var(--ink-2); background: var(--surface-2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px; }
+.ref:hover { color: var(--accent); border-color: var(--accent); }
+.watch { margin-top: 8px; padding: 14px 18px; border-radius: 12px; background: var(--surface-2); }
+.watch h3 { font-size: 14px; }
+.watch ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-2); }
+
+/* ---------- analyst */
+.cons-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+.consensus, .dist-box { background: var(--surface-2); border-radius: 14px; padding: 16px 18px; }
+.cons-head { display: flex; gap: 32px; margin-bottom: 30px; }
+.big { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.target-bar { position: relative; height: 8px; margin: 0 32px 8px; background: var(--grid); border-radius: 4px; }
+.tb-track { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: var(--g3); opacity: 0.5; }
+.tb-mark { position: absolute; top: 50%; width: 3px; height: 18px; border-radius: 2px; transform: translate(-50%, -50%); }
+.tb-mark span { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 11px; font-weight: 700; }
+.tb-mark.mean { background: var(--accent); } .tb-mark.mean span { color: var(--accent); }
+.tb-mark.now { background: var(--ink); } .tb-mark.now span { bottom: auto; top: 22px; color: var(--ink); }
+.consensus .range-label { margin-top: 26px; }
+.dist-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; font-size: 14px; }
+.dist { display: flex; gap: 2px; height: 14px; }
+.seg { border-radius: 2px; min-width: 4px; }
+.seg:first-child { border-radius: 4px 2px 2px 4px; } .seg:last-child { border-radius: 2px 4px 4px 2px; }
+.g0 { background: var(--g0); } .g1 { background: var(--g1); } .g2 { background: var(--g2); } .g3 { background: var(--g3); } .g4 { background: var(--g4); }
+.dist-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; font-size: 12px; color: var(--ink-2); }
+.dist-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-size: 12px; font-weight: 700; color: var(--muted); background: var(--surface-2); padding: 9px 12px; white-space: nowrap; }
+td { padding: 10px 12px; border-top: 1px solid var(--grid); white-space: nowrap; }
+tbody tr:hover td { background: var(--surface-2); }
+td.firm { font-weight: 700; }
+tr.none td { color: var(--muted); font-weight: 400; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+.dot.pos { background: var(--up); } .dot.neg { background: var(--down); } .dot.neu { background: var(--muted); }
+.bar-cell { display: flex; align-items: center; gap: 10px; min-width: 180px; }
+.hbar { flex: 1; height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.hbar div { height: 100%; background: var(--s1); border-radius: 0 4px 4px 0; }
+
+/* ---------- news */
+.news { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 24px; }
+.news li { break-inside: avoid; border-top: 1px solid var(--grid); }
+.news a { display: grid; grid-template-columns: 26px 1fr; gap: 2px 8px; padding: 10px 4px; text-decoration: none; border-radius: 8px; }
+.news a:hover { background: var(--surface-2); }
+.news a:hover .news-title { color: var(--accent); }
+.news-idx { grid-row: span 2; font-size: 12px; font-weight: 700; color: var(--muted); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.news-title { font-size: 14px; font-weight: 600; line-height: 1.45; }
+.news-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.lang { font-size: 10px; font-weight: 800; padding: 0 5px; border-radius: 4px; background: var(--neu-bg); color: var(--ink-2); }
+
+/* ---------- 분기 실적 · 재무제표 · EPS */
+.kpis4 { grid-template-columns: repeat(4, 1fr); margin: 0 0 12px; }
+.kpis4 .kpi { box-shadow: none; background: var(--surface-2); border-color: transparent; }
+.warn { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6;
+  background: color-mix(in srgb, var(--s2) 12%, var(--surface)); border: 1px solid color-mix(in srgb, var(--s2) 35%, var(--surface)); }
+.ebox { border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; margin-bottom: 12px; }
+.ebox h3 { font-size: 15px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.ebox ul { margin: 0; padding-left: 18px; color: var(--ink-2); line-height: 1.7; }
+.ebox .overview { margin: 4px 0 8px; }
+.tag-ai, .tag-auto { font-size: 10px; font-weight: 800; padding: 1px 7px; border-radius: 999px; }
+.tag-ai { background: var(--accent-soft); color: var(--accent); }
+.tag-auto { background: var(--neu-bg); color: var(--ink-2); }
+.pn { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pn h4 { font-size: 13px; margin: 0 0 4px; }
+.enews summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink-2); padding: 6px 0; }
+.enews ul { list-style: none; margin: 4px 0 0; padding: 0; }
+.enews li a { display: flex; gap: 6px; align-items: baseline; padding: 5px 2px; font-size: 13px; text-decoration: none; border-top: 1px solid var(--grid); }
+.enews li a:hover { color: var(--accent); }
+.unit { text-align: right; font-size: 12px; color: var(--muted); margin: 0 2px 4px; }
+table.fs td.rn { white-space: nowrap; }
+table.fs tr.grp td { background: var(--surface-2); font-weight: 800; font-size: 12px; color: var(--ink-2); }
+table.fs tr.strong td { font-weight: 700; }
+table.fs tr.ratio td { color: var(--muted); font-size: 12px; }
+table.fs tr.ratio td.rn { padding-left: 22px; }
+.chart.eps { height: 300px; }
+.chart .eps-bar { fill: var(--s1); opacity: .85; }
+.chart .eps-bar.miss { fill: var(--muted); }
+.chart .eps-bar.future { fill: none; stroke: var(--muted); stroke-dasharray: 4 3; opacity: 1; }
+.chart .eps-bar.on { opacity: 1; stroke: var(--ink); stroke-width: 1.5; }
+.chart .eps-est { fill: var(--s2); stroke: var(--surface); stroke-width: 1.5; }
+.chart .eps-val { fill: var(--ink-2); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chart .eps-val.muted { fill: var(--muted); font-weight: 600; }
+.legend-item.static { cursor: default; }
+.legend-item.static:hover { background: none; }
+.key.bar { height: 10px; width: 12px; }
+.key.dot { width: 9px; height: 9px; transform: rotate(45deg); border-radius: 1px; }
+
+.foot { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; line-height: 1.8; }
+
+/* ---------- responsive */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 16px; }
+  .kpis { grid-template-columns: repeat(3, 1fr); }
+  .cons-grid { grid-template-columns: 1fr; }
+  .kpis4 { grid-template-columns: repeat(2, 1fr); }
+  .pn { grid-template-columns: 1fr; }
+  .news { columns: 1; }
+  .legend-hint { display: none; }
+}
+@media (max-width: 520px) {
+  .price { font-size: 38px; }
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .card { padding: 18px 16px; }
+  .chart { height: 360px; }
+}
+</style><style>
+.sb{position:fixed;top:0;left:0;bottom:0;width:244px;z-index:100;overflow-y:auto;background:var(--surface);
+border-right:1px solid var(--border);padding:calc(env(safe-area-inset-top) + 14px) 10px 20px;transform:translateX(-100%);
+transition:transform .2s ease;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.sb.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.25)}
+.sb-dim{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.35);display:none}.sb.open~.sb-dim{display:block}
+.sb-title{font-weight:800;font-size:17px;padding:2px 10px 12px;color:var(--ink)}
+.sb-sec{font-size:11.5px;color:var(--muted);padding:12px 10px 6px;font-weight:600}
+.sb a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;color:var(--ink);text-decoration:none}
+.sb a:hover{background:var(--surface-2,rgba(127,127,127,.08))}
+.sb a.on{background:var(--chip,var(--accent-soft));box-shadow:inset 3px 0 0 var(--accent)}
+.sb .t{font-weight:700;font-size:14px}.sb .n{display:block;font-size:11px;color:var(--muted);font-weight:400;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb .p{text-align:right;font-size:12.5px;font-variant-numeric:tabular-nums;line-height:1.3}.sb .p .up{color:var(--up)}.sb .p .down{color:var(--down)}
+.sb .p .m{color:var(--muted);font-size:11.5px}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 8px) 12px 8px;
+background:var(--accent);color:#fff;font:600 15px/1.2 -apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.menu-btn{border:0;background:rgba(255,255,255,.18);color:#fff;font-size:18px;line-height:1;width:36px;height:36px;border-radius:10px;cursor:pointer}
+@media (min-width:900px){.sb{transform:none;box-shadow:none}.sb-dim{display:none!important}body{padding-left:244px}.topbar{display:none}}
+</style></head>
+<body><div class="topbar"><button class="menu-btn" type="button" aria-label="종목 선택 열기">☰</button>ANT 리포트</div><nav class="sb" aria-label="종목 선택"><div class="sb-title">빅테크 리포트</div><a href="../" class=""><span class="t">전체 종목</span><span class="p"><span class="m">카드 보기</span></span></a><div class="sb-sec">종목</div><a href="../r/GOOGL.html" class=""><span><span class="t">GOOGL</span><span class="n">Alphabet Inc. Class A</span></span><span class="p">$282.44<br><span class="up">▲0.80%</span></span></a><a href="../r/AMZN.html" class=""><span><span class="t">AMZN</span><span class="n">Amazon.com, Inc.</span></span><span class="p">$267.74<br><span class="up">▲3.82%</span></span></a><a href="../r/TSLA.html" class=""><span><span class="t">TSLA</span><span class="n">Tesla, Inc.</span></span><span class="p">$383.72<br><span class="up">▲0.95%</span></span></a><a href="../r/META.html" class=""><span><span class="t">META</span><span class="n">Meta Platforms, Inc. Class A</span></span><span class="p">$616.38<br><span class="down">▼0.40%</span></span></a><a href="../r/NVDA.html" class=""><span><span class="t">NVDA</span><span class="n">NVIDIA Corporation</span></span><span class="p">$150.96<br><span class="down">▼2.89%</span></span></a><a href="../r/ANT.html" class="on"><span><span class="t">ANT</span><span class="n">Anthropic PBC Class A</span></span><span class="p"><span class="m">상장 전</span></span></a></nav><div class="sb-dim"></div><div class="page">
+
+<header class="hero">
+  <div class="hero-main">
+    <div class="eyebrow"><span class="chip">NASDAQ</span>ANT · Anthropic PBC Class A</div>
+    <div class="price-row"><span class="price">상장 전</span></div>
+    <div class="muted">아직 주가 데이터가 없습니다. 상장 후 첫 실행부터 주가·차트가 자동으로 채워집니다.</div>
+  </div>
+</header>
+<div class="kpis kpis4"><div class="kpi"><div class="kpi-label">공모가 결정 예정</div><div class="kpi-value">2026-11-18</div><div class="kpi-sub"></div></div><div class="kpi"><div class="kpi-label">상장(거래 시작) 예정</div><div class="kpi-value">2026-11-19</div><div class="kpi-sub">NASDAQ</div></div><div class="kpi"><div class="kpi-label">희망 공모가</div><div class="kpi-value">$70 ~ $78</div><div class="kpi-sub">주당</div></div><div class="kpi"><div class="kpi-label">공모 규모</div><div class="kpi-value">$57.8B ~ $64.3B</div><div class="kpi-sub">825M주 기준</div></div></div>
+<p class="muted small">상장 일정·공모가는 2026-11-15 보도 기준 (S-1 공시·언론 보도)이며 확정 전입니다. 최신 내용은 SEC S-1 정정 공시로 확인하세요.</p>
+<nav class="toc"><a href="#earnings">분기 실적</a><a href="#statements">재무제표</a><a href="#analyst">애널리스트</a><a href="#news">뉴스</a></nav>
+<section class="card" id="earnings"><header class="card-head"><h2>최근 분기 실적</h2></header><div class="empty">상장 후 첫 분기 실적 발표 전입니다. 발표가 나오면 이 자리에 실적 요약과 시장 평가가 표시됩니다.</div></section><section class="card" id="statements"><header class="card-head"><h2>분기 재무제표 요약</h2><span class="section-sub">최근 3개 분기 · Yahoo Finance</span></header><div class="unit">(단위: 금액 $B · EPS $ · 비율 %)</div><div class="table-wrap"><table class="fs"><thead><tr><th>항목</th><th class="num">2025년 3분기</th><th class="num">2025년 4분기</th><th class="num">2026년 3분기</th></tr></thead><tbody><tr class="grp"><td colspan="4">손익계산서</td></tr><tr class="strong"><td class="rn">매출</td><td class="num">1.4</td><td class="num">2.0</td><td class="num">17.0</td></tr><tr class="ratio"><td class="rn">매출 성장률 (YoY)</td><td class="num muted">-</td><td class="num muted">-</td><td class="num muted">-</td></tr><tr class=""><td class="rn">매출원가</td><td class="num">0.8</td><td class="num">1.0</td><td class="num">2.4</td></tr><tr class=""><td class="rn">매출총이익</td><td class="num">0.6</td><td class="num">1.1</td><td class="num">14.5</td></tr><tr class=""><td class="rn">연구개발비</td><td class="num">1.7</td><td class="num">2.7</td><td class="num">9.5</td></tr><tr class=""><td class="rn">판매관리비</td><td class="num">0.5</td><td class="num">1.2</td><td class="num">5.6</td></tr><tr class="strong"><td class="rn">영업이익</td><td class="num down">-1.6</td><td class="num down">-2.8</td><td class="num down">-0.6</td></tr><tr class="ratio"><td class="rn">영업이익률</td><td class="num">-115.0%</td><td class="num">-139.0%</td><td class="num">-3.3%</td></tr><tr class=""><td class="rn">영업외손익</td><td class="num down">-10.7</td><td class="num down">-14.2</td><td class="num down">-23.6</td></tr><tr class=""><td class="rn">세전이익</td><td class="num down">-12.1</td><td class="num down">-16.9</td><td class="num down">-22.9</td></tr><tr class=""><td class="rn">법인세</td><td class="num">0.0</td><td class="num">0.0</td><td class="num">0.4</td></tr><tr class="strong"><td class="rn">순이익</td><td class="num down">-12.1</td><td class="num down">-16.9</td><td class="num down">-23.3</td></tr><tr class="ratio"><td class="rn">순이익률</td><td class="num">-878.3%</td><td class="num">-826.4%</td><td class="num">-137.4%</td></tr><tr class="grp"><td colspan="4">재무상태표 (분기 말)</td></tr><tr class=""><td class="rn">총자산</td><td class="num muted">-</td><td class="num">24.7</td><td class="num">154.3</td></tr><tr class=""><td class="rn">현금·단기투자</td><td class="num muted">-</td><td class="num">20.3</td><td class="num">131.8</td></tr><tr class=""><td class="rn">총부채</td><td class="num muted">-</td><td class="num">75.2</td><td class="num">304.2</td></tr><tr class=""><td class="rn">총차입금</td><td class="num muted">-</td><td class="num">41.8</td><td class="num">133.3</td></tr><tr class="strong"><td class="rn">자본총계</td><td class="num muted">-</td><td class="num down">-50.5</td><td class="num down">-149.9</td></tr><tr class="ratio"><td class="rn">부채비율</td><td class="num muted">-</td><td class="num">-148.8%</td><td class="num">-203.0%</td></tr><tr class="grp"><td colspan="4">현금흐름표</td></tr><tr class=""><td class="rn">영업활동 현금흐름</td><td class="num down">-0.5</td><td class="num down">-0.6</td><td class="num">2.6</td></tr><tr class=""><td class="rn">설비투자(CapEx)</td><td class="num down">-0.1</td><td class="num down">-0.0</td><td class="num down">-2.4</td></tr><tr class="strong"><td class="rn">잉여현금흐름(FCF)</td><td class="num down">-0.7</td><td class="num down">-0.6</td><td class="num">0.2</td></tr><tr class=""><td class="rn">자사주 매입</td><td class="num">0.0</td><td class="num">0.0</td><td class="num">0.0</td></tr></tbody></table></div></section><section class="card" id="analyst"><header class="card-head"><h2>월가 애널리스트 평가</h2><span class="section-sub">Yahoo Finance</span></header><div class="cons-grid">
+<div class="dist-box">
+  <div class="dist-head"><span class="kpi-label">투자의견 분포</span>
+    <span><b>매수 0%</b> <span class="muted">· 애널리스트 1명</span></span></div>
+  <div class="dist"></div>
+  <div class="dist-legend"></div>
+</div></div><h3 class="sub-title">주요 투자은행 최신 의견</h3><div class="table-wrap"><table><thead><tr><th>기관</th><th class="num">일자</th><th>투자의견</th><th>변경</th><th class="num">목표주가</th><th class="num">상승여력</th></tr></thead><tbody><tr class="none"><td>Goldman Sachs</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Morgan Stanley</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>JP Morgan</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Bank of America</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Citi</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Wells Fargo</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>UBS</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Barclays</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Deutsche Bank</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Jefferies</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>Evercore ISI</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr><tr class="none"><td>RBC Capital</td><td class="num">-</td><td colspan="4">공개된 의견 없음</td></tr></tbody></table></div></section><section class="card" id="news"><header class="card-head"><h2>수집된 뉴스</h2><span class="section-sub">최근 24시간 · 30건</span></header><ul class="news"><li><a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxPb1dQS0xwaGdEa3NFS3B0NzlPZnJyUC01VjFHU0s1TkJnZkEycHpwUm1uQTBfYUYzRE1zUjJsQ05xelp2SGlYbWl3aklQdWdlOXFXbF9aRTc4Sk50dW5MQWZsRnVULUVaaFBMTmpmai1Fb3RsenBWWHBOTEt5MmNrZTlwSFY?oc=5" target="_blank" rel="noopener"><span class="news-idx">00</span><span class="news-title">Anthropic Raises $81 Billion in Biggest IPO Ever</span><span class="news-meta"><span class="lang">EN</span>WSJ · 11-19 05:04</span></a></li><li><a href="https://news.google.com/rss/articles/CBMie0FVX3lxTE45ZV9aZUpNTGl2cUJrTEZ3SzR5a2ZjcW42VURGbElXZ1B1TUtISE4zeXhEVlFTWW11ajJpV2FSNzNCM0lRYlBWREpXMURsUWJGUlppbTdnbUpjdXNuVU1yQ3VFLW1wam5kNDVZQ1o1cDE2bVg0UUFweWE3VQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">01</span><span class="news-title">Anthropic IPO raises record $81.3 billion on strong AI demand</span><span class="news-meta"><span class="lang">EN</span>NPR · 11-18 23:54</span></a></li><li><a href="https://news.google.com/rss/articles/CBMingFBVV95cUxQa3BkQzh0ZFBoUzZmTzU4akxveFYzZ2pZWEM0aklQWU50RlBfaW4yaDNTMWxKbzFmZ1d3QW96ZkVjOC0zOHh6eUhGWHhZbkVqRHdGc09WSnk3ek56UTJzYjZtZXI5cVo5UmlRd1JJUE9Qa29HRXZEN0JZZlFNR01yX2xpYkVGWDNSTVNxeGFCTzNBZ3VDc29BQlV6dzdBdw?oc=5" target="_blank" rel="noopener"><span class="news-idx">02</span><span class="news-title">Anthropic Is Said to Price IPO Above Range at $83 Per Share</span><span class="news-meta"><span class="lang">EN</span>Bloomberg.com · 11-19 02:53</span></a></li><li><a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE1nQ3JieUUxQkdyelMxelhaUUdmaTFlSTFva2pnR2FHY08wbXdmT01JVk56aUVHRGtQRUFhc1J2SFR0cEp4THBGc3M3aGhlalE3MUlEb3dQbElfREZhYlVjemROWDRVRm51QXVIakZKM2pmZi03by1hUi1FN04?oc=5" target="_blank" rel="noopener"><span class="news-idx">03</span><span class="news-title">Anthropic Sells $81.3 Billion in Shares for a Record IPO</span><span class="news-meta"><span class="lang">EN</span>The New York Times · 11-19 00:41</span></a></li><li><a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxOX1BxZ1lwWHZTQWl3dHVtU0pTVFhGUmkxVVBkczk3bEtaNzlsN0RjY21hN0t6OUJhQlpKQlBGR09GY3JseHVhcTY0clp4eW54cVJHT1RKN3JQdEU2aEVxX2hqVzd3UDBSRmxZUFcyb0tGYUNucE4zUnF6YzhVaVE1cml1ako?oc=5" target="_blank" rel="noopener"><span class="news-idx">04</span><span class="news-title">Anthropic retail investors face squeeze in blockbuster IPO</span><span class="news-meta"><span class="lang">EN</span>Financial Times · 11-19 05:00</span></a></li><li><a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNb2J2Y0wyMmZoZzJvMFRiOWZQR0loazhMOGFKZ2FtT0h3WDVwbDRoX1pxcDZTSDNINjQ0Q2FYMFdHcWdFMVVaS3Z1QVRNRm9RRHpIN2lPUk1wS1EyQmVMTkRqWkJ2Y3NtVjI0Qy1rVEhOR3l4aWhtVXp1cHczdnFVWktXcGZUQlZRcEk2Z1dEUkotWHIzR2RiRzUzUTNaU29MVFhNcQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">05</span><span class="news-title">Anthropic IPO: $83 Share Price and Year-End Valuation Odds</span><span class="news-meta"><span class="lang">EN</span>Time Magazine · 11-19 00:07</span></a></li><li><a href="https://news.google.com/rss/articles/CBMidEFVX3lxTFBaSEpySEJVdkE1YUZTN3FtVFNFU1JIRWVyTnk4QUJ2T0tIVjJTZjl2dUZWSGVBS0RaLWpVeU1jR0ZONG5TR0RPQnpuOGlnZ1JBQmxFb0tzUGc0RUcyN1dDTDNiQTdkMDBLUEZ0ckNlSDZiTVFf?oc=5" target="_blank" rel="noopener"><span class="news-idx">06</span><span class="news-title">Anthropic’s $83 IPO price puts it on track for a record-breaking debut on Wall Street. Here’s what it means</span><span class="news-meta"><span class="lang">EN</span>CNN · 11-18 23:49</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNeVVmSzl3dVBhbDdFbTMtTUl2LWVHU1FRb2hvYzJZNWdFU0ZDTmU3NFBVNDVWQXNXQlk2QmkzblN4MUplLWVGc1NheHNRZVpZTHZ1eG9OME53SUNtOExJQzNFSTJpLUw0cWxnSjR4VWlXLWZhZUZsc0dna1J6bmxZTTNBb0l2LUpq?oc=5" target="_blank" rel="noopener"><span class="news-idx">07</span><span class="news-title">Anthropic to debut on Wall Street with a $1.5 trillion valuation in the biggest IPO of all time</span><span class="news-meta"><span class="lang">EN</span>AP News · 11-19 02:23</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTFBVQW5FQUFlUkpzU1BnR2RJV2Q0eG1RWVNNYS0tU0REZU9pNWV0cmI2NTd2OGQyeVhEai04c2cxOGd3LVdRNWFJbVdscGdSTmthblg4SnJRcVVnSi1oRDdxYndNVUI3SDlP?oc=5" target="_blank" rel="noopener"><span class="news-idx">08</span><span class="news-title">Anthropic valued at over $1 trillion in historic IPO</span><span class="news-meta"><span class="lang">EN</span>Axios · 11-19 02:46</span></a></li><li><a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxOdUdDUjdPYlNZRG1KR245Rjc2SEQtTlVuVnZUZk4ycHBXM3lqSFBfTmZBZW8tUDIxVWZpV0huNnZLNWdiOWlFczVieFA3bEN3Y25Db2NnajF2Rkp5OFcxTFJEZ01fckRnNFgwcUU1ZHUtMW83RWowdVlRdERCaV9td0Q4NDJNWlUwbVNBU241YW9RNmhyUGFMMGpzSk9LQWYxN3I2akNYSDNuV0VqVU5zNUVJZUlzLXdtQ2FGMA?oc=5" target="_blank" rel="noopener"><span class="news-idx">09</span><span class="news-title">Anthropic IPO (Live Updates): $81 Billion Raised—Breaking SpaceX’s Record</span><span class="news-meta"><span class="lang">EN</span>Forbes · 11-19 00:22</span></a></li><li><a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxNN3RRcVVxdXkwRTYwSlg4ajFFUGlhaEpZUm5lR0RHYldlbE01ekI5dE9HVjFudHVOUi1zZldMUWRIOTR2ZDk1WFJmSTJ3M2lSamV0MjZHVzdfb2ZBSzE5M3hyY05GdGh4R0Nka2hoWVNseFlDeVNiUHdnN3diRVhXVXEtU3ktd3l5SlZRU2FCUVo4Wk9jVjlodk1hSQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">10</span><span class="news-title">ANT stock update: Anthropic share price, stock trading time, and more for Claude maker’s much-hyped IPO</span><span class="news-meta"><span class="lang">EN</span>Fast Company · 11-18 23:56</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxOWkdlbW1ReWtyUXdHSHFPaWw0Q25WdThvUlFSTDY3cGI2THcyNUtSNzVhNVZUdFVkcVF1Rzh3SWl4dVRiTEk3Z3JyLWpGeEx2aGFCYWZ3bTA2SXBia1lXcVBFd2xrRFdNQTllNUV4RGxVOWZreFlLWENXNzF5Njdsa1ZLZ0NWcEVRbzRJdnNuSm0tLTVUY280clRCaXVzOGhSekhNMkhBdGF2Wmc?oc=5" target="_blank" rel="noopener"><span class="news-idx">11</span><span class="news-title">How the Anthropic IPO stacks up against SpaceX</span><span class="news-meta"><span class="lang">EN</span>Reuters · 11-18 22:54</span></a></li><li><a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE5TS3pIa0hIdVZlM0ppdWtHejF1ZnJqOG9WQlRJaWllalJIOG1yZWpKNG5Ha3JmZDdwS0JUS3g5UmkxNEd0WUdGYTVqS19sNldjRWctOTdxNEo1VExLeGx0R0VMcGgwQWt2OVM1ZE1CU0h5UEl3Z1E?oc=5" target="_blank" rel="noopener"><span class="news-idx">12</span><span class="news-title">What Anthropic’s IPO Means for Fashion</span><span class="news-meta"><span class="lang">EN</span>Vogue · 11-19 05:00</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiiwFBVV95cUxPdVQxaWQ0RXNfTUU0d1d5bXozeFJuUVpUNWdlVmVjZkVmLW9jaW9jTkd5dVk5OVlxaHRlRFMzaWxaMkE3d2ZEbjVpeVZWRFl6QUF3bDdsVHBXLWlYYXl5eFA2MUpBckNESFY1NHZNc2RqMnc4Z1QzUlR1ZE13RzJUZGpfWGtfN0NFUkZN?oc=5" target="_blank" rel="noopener"><span class="news-idx">13</span><span class="news-title">Another AI company is about to be worth more than $1 trillion. What that means for the rest of us.</span><span class="news-meta"><span class="lang">EN</span>NBC News · 11-18 21:23</span></a></li><li><a href="https://news.google.com/rss/articles/CBMi8gFBVV95cUxQeVBnRUZJVFdOVnpFN2VzbW14dEJLZjBNM1RMM29ERmY1cGF3eDF6WWcwb0t6OVNMbC1Jd2Nvcmx6QVlERkNYQUtHaGhQb3FVdVVRemk5YmV1am1PN3hzZHBQbzlrcDB6MWgyNV85a0sxLW9oLWZFQmdVZmNwWDlZVDVWZ3hPdTNaRm1SYmlNVnNLU1RJU2FVdEVHSnFXdU45Y1JXMS00ZUk3bFpvVWVubHBISS1fX2gtT0ZZUFowTHhiYlBvSlNPMDVTY0lUeDRpejU5YkxPSXYzbEhOZEU2Sno4OU1kTFRUbmdrMUhzdmpTUQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">14</span><span class="news-title">Dow Jones Futures Rise: Anthropic IPO To Debut After Pricing High; Palo Alto And Everpure Rally On Earnings</span><span class="news-meta"><span class="lang">EN</span>Investor&#x27;s Business Daily · 11-19 04:02</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTFBWaXpFX2diM2E5bEpucEVWN0tZeVRhUmVIb0pxS3lxY0ZMdGV4X2Nwam5tV2ZiRXU0OVZIcEJfNlhGZ3kxN2lZc0JxaFQ4RUtUeUlvT0pERmdad9IBX0FVX3lxTE1rRHZienNpZFdIRHMzaTdrUWw5ZDN5alRIcHZDMDJ3R1hfV0ZiNk9nVUZsSWZSbFY0XzFMYndaNGZQZzhuYkMwbW1sTDQ4X0VQdURHcFZUTDU4ZklMbjAw?oc=5" target="_blank" rel="noopener"><span class="news-idx">15</span><span class="news-title">앤트로픽 공모가 83달러 확정…역대 최대 IPO로 나스닥 데뷔</span><span class="news-meta"><span class="lang">KR</span>경향신문 · 11-19 05:06</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE1uTEtzdVhqbjJqdktFU3ZzLUtaMUhoNG1URWZIUDVrVHE1LUZEUjByalRIQmRkNWxZWUhFMFlXZHNUX3ZsWk5pdXFGblhMUFNaVlZXbVlzSm9YYnpVNDhrMFRFZy1HQWhp0gFuQVVfeXFMUFhPcUwwX2p0TE02dmJmSXpYTnVPWGhWQTVuTmhzWl9rd3BmeG5Pc01CZGo3WkQ0THFOZ2p6M3BBd09BOE9mSTZvUEJtcXhNcUNpVXR1S1YwbFJUZjVEaXZ3eWVoclVXYlVNT0o1WkE?oc=5" target="_blank" rel="noopener"><span class="news-idx">16</span><span class="news-title">&quot;스페이스X보다 뜨겁다&quot;...앤트로픽 공모가, 희망범위 돌파 전망 - 머니투데이</span><span class="news-meta"><span class="lang">KR</span>머니투데이 · 11-18 22:25</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiTkFVX3lxTE04Zlk0UDlVRE9vaF9jMU5kVklwanZsUF83RUEwM1FkeTFsN2NVUnZkQzJVZm5lb1ZlNllwbHpRb1VFUXRucjB5QkFzdmt6QQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">17</span><span class="news-title">앤트로픽, 공모가 83달러 확정…813억달러 역대 최대 IPO</span><span class="news-meta"><span class="lang">KR</span>전자신문 · 11-19 05:23</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiTkFVX3lxTFBjRFpKdGg5QVNyaU9WemotdDVERnE4UTNmMWFPYkRQQmNCZWJ2Z1ItOEtudVpxMWhnWWhXUFg5RFRwR1hta0hkTC1TXzk4dw?oc=5" target="_blank" rel="noopener"><span class="news-idx">18</span><span class="news-title">앤트로픽 공모가 83달러 확정…사모 포함 940억달러 초대형 상장</span><span class="news-meta"><span class="lang">KR</span>매일경제 · 11-18 22:56</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE9NamVaV01VZVJkcVNvVEZJakFYU2ZJS3VkN0hBT0lGSGhPMGJVelJTQXRIaGpsUHNDRzI4R2otMXg3T0t0WDlpLS1ETy1FcFNNbVZKdTVDV3Zsdw?oc=5" target="_blank" rel="noopener"><span class="news-idx">19</span><span class="news-title">앤트로픽 공모가 83달러로 결정…940억달러 역대 최대 IPO</span><span class="news-meta"><span class="lang">KR</span>한국경제 · 11-18 21:27</span></a></li><li><a href="https://news.google.com/rss/articles/CBMib0FVX3lxTFBRZTJzRU9aOW5FWGQxR2Z3dVAwYllXY3pXZmRqVUFxYnRtdWg2cG1MdlZnTjFoampjNEpoc0YzNE9mdUloSjY0MTM4S3dnTjQ3dWRJR0RrRjBsdGF1cW9Zc0U0dzZ3WGxicHhPLTRrbw?oc=5" target="_blank" rel="noopener"><span class="news-idx">20</span><span class="news-title">앤트로픽 공모가, 예상 넘긴 83달러…기업가치 1.5조달러 전망</span><span class="news-meta"><span class="lang">KR</span>한겨레 · 11-18 22:46</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiakFVX3lxTFBVV2lvVkpwMHljZll3T1l0OUdxenIxdWpjRmhPQzdQZkNHS1psejNSN1poSWxqSFNpbDFXeUMxb2ZoUTl6MDRBbTNCNXZNMmpaU3pmN0QtWFltREREcEdzZUpiSW5KUFAxQWc?oc=5" target="_blank" rel="noopener"><span class="news-idx">21</span><span class="news-title">앤트로픽, 공모가 83달러 확정…기업가치 1.5조달러로 역대 최대 IPO</span><span class="news-meta"><span class="lang">KR</span>AI타임스 · 11-19 03:19</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE96LWFueGFrQmlJMzF2ZFZuTG5zTG9obEI0a2hhVUUzNXZ6bC13azRwLXNTLWJwM1ludGtHdkdLaW9kZXRkcTNhQl9uSjFNMDZETUc4TVRZSHpFTFHSAWBBVV95cUxNZnc2WGJHOFZjTHFHa0JnZ3dyUDlEVFJZSFBOZ0toUjlvbFNsOUtUVXVHd09XQjFSeUpRM3BqVE5xZXJsWXVCTUF0RWRpelp4Qzg3T1k5bnUyalpNWTJ0YnY?oc=5" target="_blank" rel="noopener"><span class="news-idx">22</span><span class="news-title">앤트로픽 상장으로 최태원 SK그룹 4조3천억원 &#x27;잭폿&#x27;</span><span class="news-meta"><span class="lang">KR</span>연합뉴스 · 11-19 05:27</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTFBYSVkweGxyaFRfd0lhMFI3aERmYWptR2F4SGRESVhWY2ZBaXVDTnBvcWRjUlVySmgxRVh3RXlXTU04dG1pSmNPaUlTZWc5X2RNRHFJclNZUXhRaXE1UTF0NVZEeWU?oc=5" target="_blank" rel="noopener"><span class="news-idx">23</span><span class="news-title">최태원 &#x27;AI 승부수&#x27;…SKT, 앤트로픽 투자 15.7배 결실</span><span class="news-meta"><span class="lang">KR</span>매일일보 · 11-19 07:23</span></a></li><li><a href="https://news.google.com/rss/articles/CBMicEFVX3lxTFBETW00eTVWWkpfd0VmQTZvZTVqYmwwckh0S21SUUdpaWIxbnlqOU42Um53bUZTd3NqOHUyeHM0eGhpd1ZSaGFSSC1PS3JXSl9BaXl2OWtxVHZBUEx2akpNalZvRzIxV0pNT0ZTUnNLWG4?oc=5" target="_blank" rel="noopener"><span class="news-idx">24</span><span class="news-title">사상 최대 IPO 앤트로픽 오늘 밤 나스닥 데뷔…국내 연관주는 ’뉴스에 팔아라’</span><span class="news-meta"><span class="lang">KR</span>Investing.com 한국어 · 11-19 06:21</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTE5vdGxRNHpxdXJ6Y21tM25xRTNGMmRyUXVlcFc2THJNcHBRTTl4ZF9qelMzdFpVVFNWOUZQc1lZb3hYOEIzaEtUWmtNYUJYVUU?oc=5" target="_blank" rel="noopener"><span class="news-idx">25</span><span class="news-title">앤트로픽, 109조원 역대 최대 IPO…스페이스X 넘었다</span><span class="news-meta"><span class="lang">KR</span>딜사이트 · 11-19 03:47</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE04SGE4aEVBaFlqdUJYTllBSDFmS0hoTTB2YmQxRWRXc1hzVkZrdFpCLWdiLXdoZU9IMVo2aXdKVkJwQzE2bVFHelZQUjZKV3ZDLVZ30gFYQVVfeXFMUERtMjZqS3IzZTJnT0pZb01mdzY4ZnJ0LWZCWDZZYzBlamdWUlZzcjJJUi1OQjJmcUVIQnA2MjBqWndzb0M2NHJKa1NyZzExcElqZ1RyV0haVQ?oc=5" target="_blank" rel="noopener"><span class="news-idx">26</span><span class="news-title">앤트로픽 상장 앞두고 &#x27;출렁&#x27;…5천피 놓고 &#x27;공방&#x27;</span><span class="news-meta"><span class="lang">KR</span>SBS Biz · 11-19 06:16</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE9KWWJwQTRlMDN2ZGpUbjlyNlBxQkpDZ21KcEQyN05jRHJZc1pqeHcxRTQ2OFhiNHdraHZBTzVpRk9pQkxiSGVHeXJKTkVsY25uVnBUeTNERUpqekFHd0E?oc=5" target="_blank" rel="noopener"><span class="news-idx">27</span><span class="news-title">앤트로픽 상장 초읽기...국장 떠난 외국인 자금 돌아올까? [몇층이세요]</span><span class="news-meta"><span class="lang">KR</span>YTN · 11-19 07:02</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5lZmZhNVZxOEFncW90TjI1d2F2NEJnNE1LenpFLUNSSVR5dENEZDlGOXlLRmctbnk2NTBxTHZ5WFZpYmJ1VXFjVzFNUFVORVdnMVBkVzlFRDlhOTJIRVp5YWdUUHloaWc?oc=5" target="_blank" rel="noopener"><span class="news-idx">28</span><span class="news-title">앤트로픽, 기업공개 공모가 11만원 확정…108조원 규모 초대형 상장</span><span class="news-meta"><span class="lang">KR</span>인공지능신문 · 11-19 03:17</span></a></li><li><a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTFB0ZlVFSXZvRVVIWUpfZ1g1X1I3Vmd3QmVVTDlISHhfdEoyRkg5OFZqZmZFbFpuWV8wY2cwbHNrd2pzQzdadzBZQnZTaEJVdlpORGQ5S2Jn?oc=5" target="_blank" rel="noopener"><span class="news-idx">29</span><span class="news-title">앤트로픽, 공모가 83달러 확정…기업가치 1조5000억달러·역대 최대 IPO 달성</span><span class="news-meta"><span class="lang">KR</span>뉴스21 통신 · 11-19 06:19</span></a></li></ul></section>
+<footer class="foot">생성 2026-11-19 16:41 · 데이터: Yahoo Finance, Google News<br>
+EPS·재무제표는 Yahoo Finance 분기 데이터(GAAP 기준, 영업외손익 포함) 그대로이며, 회사 발표 자료와 반올림·분류 차이가 있을 수 있습니다.<br>
+본 리포트는 정보 제공용이며 투자 권유가 아닙니다. 실적 요약·긍정/우려 요인은 재무 데이터로 자동 작성한 것입니다.</footer>
+</div>
+<script>(function () {
+  "use strict";
+  var dataEl = document.getElementById("chart-data");
+  if (!dataEl) return;  // 상장 전처럼 주가 데이터가 없으면 차트 없음
+  var rows = JSON.parse(dataEl.textContent);
+  var root = document.getElementById("price-chart");
+  var tip = document.getElementById("chart-tip");
+  var SERIES = [
+    { key: "c", name: "종가", cls: "s1", width: 2 },
+    { key: "ma20", name: "20일 이동평균", cls: "s2", width: 1.5 },
+    { key: "ma60", name: "60일 이동평균", cls: "s3", width: 1.5 }
+  ];
+  var visible = { c: true, ma20: true, ma60: true };
+  var WEEK = "일월화수목금토";
+  var g = null;      // 마지막으로 그린 좌표계
+  var active = null; // 현재 선택된 인덱스
+
+  function money(v) { return v == null ? "-" : "$" + v.toFixed(2); }
+  function volText(v) { return (v / 1e6).toFixed(1) + "M"; }
+
+  function niceTicks(min, max, count) {
+    var raw = (max - min) / count;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var step = [1, 2, 2.5, 5, 10].map(function (m) { return m * mag; }).filter(function (s) { return s >= raw; })[0];
+    var out = [];
+    for (var v = Math.ceil(min / step) * step; v <= max + 1e-9; v += step) out.push(+v.toFixed(6));
+    return out;
+  }
+
+  function draw() {
+    var W = root.clientWidth, H = root.clientHeight;
+    if (!W || !H) return;
+    var L = 4, R = 58, T = 12;
+    var volH = Math.round(H * 0.16), gap = 26, axisH = 22;
+    var priceB = H - axisH - volH - gap;          // 가격 패널 하단
+    var volT = priceB + gap, volB = H - axisH;     // 거래량 패널
+    var n = rows.length, step = (W - L - R) / (n - 1);
+    function X(i) { return L + i * step; }
+
+    // y 범위: 보이는 선 기준
+    var lo = Infinity, hi = -Infinity;
+    rows.forEach(function (r) {
+      SERIES.forEach(function (s) {
+        var v = r[s.key];
+        if (visible[s.key] && v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
+      });
+    });
+    if (!isFinite(lo)) { lo = 0; hi = 1; }
+    var pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+    function Y(v) { return T + (hi - v) / (hi - lo) * (priceB - T); }
+    var vmax = Math.max.apply(null, rows.map(function (r) { return r.v; }));
+    function VY(v) { return volB - v / vmax * (volB - volT); }
+
+    var s = [];
+    s.push('<svg width="' + W + '" height="' + H + '" aria-hidden="true">');
+    s.push('<defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">' +
+           '<stop offset="0" class="grad-top"/><stop offset="1" class="grad-bot"/></linearGradient></defs>');
+
+    // 가로 그리드 + y 라벨
+    niceTicks(lo, hi, 5).forEach(function (t) {
+      var y = Y(t);
+      if (y < T - 1 || y > priceB + 1) return;
+      s.push('<line class="gridline" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/>');
+      s.push('<text class="tick" x="' + (W - R + 8) + '" y="' + (y + 4) + '">$' + t.toFixed(0) + '</text>');
+    });
+    s.push('<line class="baseline" x1="' + L + '" x2="' + (W - R) + '" y1="' + volB + '" y2="' + volB + '"/>');
+    s.push('<text class="panel-label" x="' + L + '" y="' + (volT - 8) + '">거래량</text>');
+    s.push('<text class="tick" x="' + (W - R + 8) + '" y="' + (volT + 8) + '">' + volText(vmax) + '</text>');
+
+    // x 라벨: 월 시작
+    var minGap = 46, lastX = -Infinity;
+    rows.forEach(function (r, i) {
+      var prev = rows[i - 1];
+      if (i === 0 || r.d.slice(0, 7) === prev.d.slice(0, 7)) return;
+      var x = X(i);
+      if (x - lastX < minGap || x > W - R - 20) return;
+      lastX = x;
+      var m = +r.d.slice(5, 7);
+      var label = m === 1 ? r.d.slice(0, 4) + "년" : m + "월";
+      s.push('<line class="gridline" x1="' + x + '" x2="' + x + '" y1="' + volB + '" y2="' + (volB + 4) + '"/>');
+      s.push('<text class="tick" text-anchor="middle" x="' + x + '" y="' + (H - 4) + '">' + label + '</text>');
+    });
+
+    // 거래량 막대
+    var bw = Math.max(1, Math.min(6, step * 0.65));
+    rows.forEach(function (r, i) {
+      var y = VY(r.v);
+      s.push('<rect class="vol" data-i="' + i + '" x="' + (X(i) - bw / 2) + '" y="' + y + '" width="' + bw +
+             '" height="' + Math.max(0.5, volB - y) + '" rx="' + Math.min(1.5, bw / 2) + '"/>');
+    });
+
+    // 종가 영역 + 선
+    function path(key) {
+      var d = "", pen = false;
+      rows.forEach(function (r, i) {
+        var v = r[key];
+        if (v == null) { pen = false; return; }
+        d += (pen ? "L" : "M") + X(i).toFixed(1) + " " + Y(v).toFixed(1);
+        pen = true;
+      });
+      return d;
+    }
+    if (visible.c) {
+      s.push('<path class="area" d="' + path("c") + "L" + X(n - 1) + " " + priceB + "L" + X(0) + " " + priceB + 'Z"/>');
+    }
+    SERIES.slice().reverse().forEach(function (sr) {
+      if (!visible[sr.key]) return;
+      s.push('<path class="line ' + sr.cls + '" stroke-width="' + sr.width + '" d="' + path(sr.key) + '"/>');
+    });
+
+    // 마지막 종가 태그
+    if (visible.c) {
+      var last = rows[n - 1], ly = Y(last.c);
+      s.push('<g class="last-tag"><rect x="' + (W - R + 2) + '" y="' + (ly - 10) + '" width="' + (R - 4) +
+             '" height="20" rx="5"/><text x="' + (W - R + 8) + '" y="' + (ly + 4) + '">$' + last.c.toFixed(1) + '</text></g>');
+    }
+
+    // 크로스헤어 레이어
+    s.push('<g id="cross" style="display:none"><line class="cross" y1="' + T + '" y2="' + volB + '"/>');
+    SERIES.forEach(function (sr) { s.push('<circle class="pt ' + sr.cls + '" data-k="' + sr.key + '" r="4.5"/>'); });
+    s.push('</g></svg>');
+    root.innerHTML = s.join("");
+    g = { X: X, Y: Y, step: step, L: L, R: R, W: W, n: n };
+    if (active != null) show(active);
+  }
+
+  function tipRow(label, value, cls) {
+    var row = document.createElement("div");
+    row.className = "tip-row";
+    var a = document.createElement("span");
+    if (cls) { var k = document.createElement("i"); k.className = "key " + cls; a.appendChild(k); }
+    a.appendChild(document.createTextNode(label));
+    var b = document.createElement("b");
+    b.textContent = value;
+    row.appendChild(a); row.appendChild(b);
+    return row;
+  }
+
+  function show(i) {
+    if (!g) return;
+    active = i;
+    var r = rows[i], prev = rows[i - 1], x = g.X(i);
+    var cross = root.querySelector("#cross");
+    cross.style.display = "";
+    var line = cross.querySelector("line");
+    line.setAttribute("x1", x); line.setAttribute("x2", x);
+    cross.querySelectorAll("circle").forEach(function (c) {
+      var v = r[c.getAttribute("data-k")];
+      var on = visible[c.getAttribute("data-k")] && v != null;
+      c.style.display = on ? "" : "none";
+      if (on) { c.setAttribute("cx", x); c.setAttribute("cy", g.Y(v)); }
+    });
+    root.querySelectorAll("rect.vol.on").forEach(function (b) { b.classList.remove("on"); });
+    var bar = root.querySelector('rect.vol[data-i="' + i + '"]');
+    if (bar) bar.classList.add("on");
+
+    // 툴팁 내용 (값이 먼저, 이름은 보조)
+    tip.textContent = "";
+    var dt = new Date(r.d + "T00:00:00");
+    var head = document.createElement("div");
+    head.className = "tip-date";
+    head.textContent = r.d.replace(/-/g, ".") + " (" + WEEK[dt.getDay()] + ")";
+    var price = document.createElement("div");
+    price.className = "tip-price";
+    price.textContent = money(r.c);
+    if (prev) {
+      var chg = (r.c / prev.c - 1) * 100, sm = document.createElement("small");
+      sm.className = chg > 0 ? "up" : chg < 0 ? "down" : "flat";
+      sm.textContent = (chg > 0 ? "▲ " : chg < 0 ? "▼ " : "") + Math.abs(r.c - prev.c).toFixed(2) +
+                       " (" + (chg >= 0 ? "+" : "") + chg.toFixed(2) + "%)";
+      price.appendChild(sm);
+    }
+    tip.appendChild(head); tip.appendChild(price);
+    tip.appendChild(tipRow("시가", money(r.o)));
+    tip.appendChild(tipRow("고가", money(r.h)));
+    tip.appendChild(tipRow("저가", money(r.l)));
+    tip.appendChild(document.createElement("hr"));
+    if (visible.ma20) tip.appendChild(tipRow("20일 이동평균", money(r.ma20), "s2"));
+    if (visible.ma60) tip.appendChild(tipRow("60일 이동평균", money(r.ma60), "s3"));
+    tip.appendChild(tipRow("거래량", volText(r.v)));
+    tip.hidden = false;
+
+    // 위치: 커서 오른쪽, 넘치면 왼쪽
+    var tw = tip.offsetWidth, left = x + 16;
+    if (left + tw > root.clientWidth) left = x - tw - 16;
+    tip.style.transform = "translate(" + Math.max(0, left) + "px, 8px)";
+  }
+
+  function hide() {
+    active = null;
+    tip.hidden = true;
+    var cross = root.querySelector("#cross");
+    if (cross) cross.style.display = "none";
+    root.querySelectorAll("rect.vol.on").forEach(function (b) { b.classList.remove("on"); });
+  }
+
+  function indexAt(clientX) {
+    var rect = root.getBoundingClientRect();
+    var i = Math.round((clientX - rect.left - g.L) / g.step);
+    return Math.max(0, Math.min(g.n - 1, i));
+  }
+
+  root.addEventListener("pointermove", function (ev) { if (g) show(indexAt(ev.clientX)); });
+  root.addEventListener("pointerdown", function (ev) { if (g) show(indexAt(ev.clientX)); });
+  root.addEventListener("pointerleave", hide);
+  root.addEventListener("focus", function () { show(active == null ? rows.length - 1 : active); });
+  root.addEventListener("blur", hide);
+  root.addEventListener("keydown", function (ev) {
+    var i = active == null ? rows.length - 1 : active;
+    if (ev.key === "ArrowLeft") i -= ev.shiftKey ? 5 : 1;
+    else if (ev.key === "ArrowRight") i += ev.shiftKey ? 5 : 1;
+    else if (ev.key === "Home") i = 0;
+    else if (ev.key === "End") i = rows.length - 1;
+    else return;
+    ev.preventDefault();
+    show(Math.max(0, Math.min(rows.length - 1, i)));
+  });
+
+  document.querySelectorAll(".legend-item").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var k = btn.getAttribute("data-key");
+      var on = Object.keys(visible).filter(function (key) { return visible[key]; });
+      if (visible[k] && on.length === 1) return; // 최소 1개는 표시
+      visible[k] = !visible[k];
+      btn.setAttribute("aria-pressed", String(visible[k]));
+      draw();
+    });
+  });
+
+  if (window.ResizeObserver) new ResizeObserver(draw).observe(root);
+  else window.addEventListener("resize", draw);
+  draw();
+})();
+
+(function () {
+  "use strict";
+  // 분기별 EPS: 막대 = 실제(희석 EPS), 마름모 = 컨센서스, 점선 막대 = 발표 예정 분기(컨센서스만)
+  var dataEl = document.getElementById("eps-data");
+  if (!dataEl) return;
+  var rows = JSON.parse(dataEl.textContent);
+  var root = document.getElementById("eps-chart");
+  var tip = document.getElementById("eps-tip");
+  var g = null, active = null;
+
+  function money(v) { return v == null ? "-" : "$" + v.toFixed(2); }
+
+  function niceStep(max) {
+    var raw = max / 5, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    return [1, 2, 2.5, 5, 10].map(function (m) { return m * mag; }).filter(function (s) { return s >= raw; })[0];
+  }
+
+  function draw() {
+    var W = root.clientWidth, H = root.clientHeight;
+    if (!W || !H) return;
+    var L = 8, R = 48, T = 22, B = 30;
+    var n = rows.length, slot = (W - L - R) / n, bw = Math.max(8, Math.min(42, slot * 0.55));
+    var hi = 0;
+    rows.forEach(function (r) { hi = Math.max(hi, r.act || 0, r.est || 0); });
+    var step = niceStep(hi * 1.1 || 1), top = Math.ceil(hi * 1.12 / step) * step;
+    function Y(v) { return T + (top - v) / top * (H - T - B); }
+    function X(i) { return L + slot * (i + 0.5); }
+    var s = ['<svg width="' + W + '" height="' + H + '" aria-hidden="true">'];
+    for (var t = 0; t <= top + 1e-9; t += step) {
+      var y = Y(t);
+      s.push('<line class="' + (t === 0 ? "baseline" : "gridline") + '" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/>');
+      s.push('<text class="tick" x="' + (W - R + 8) + '" y="' + (y + 4) + '">$' + (+t.toFixed(2)) + '</text>');
+    }
+    rows.forEach(function (r, i) {
+      var x = X(i), base = Y(0);
+      if (r.act != null) {
+        var y = Y(r.act), beat = r.est != null && r.act >= r.est;
+        s.push('<rect class="eps-bar' + (beat ? "" : " miss") + '" data-i="' + i + '" x="' + (x - bw / 2) + '" y="' + y + '" width="' + bw +
+               '" height="' + Math.max(1, base - y) + '" rx="3"/>');
+        s.push('<text class="eps-val" text-anchor="middle" x="' + x + '" y="' + (y - 6) + '">' + r.act.toFixed(2) + '</text>');
+      } else if (r.est != null) {
+        var ye = Y(r.est);
+        s.push('<rect class="eps-bar future" data-i="' + i + '" x="' + (x - bw / 2) + '" y="' + ye + '" width="' + bw +
+               '" height="' + Math.max(1, base - ye) + '" rx="3"/>');
+        s.push('<text class="eps-val muted" text-anchor="middle" x="' + x + '" y="' + (ye - 6) + '">예상 ' + r.est.toFixed(2) + '</text>');
+      }
+      if (r.est != null && r.act != null) {
+        var yy = Y(r.est), d = 5;
+        s.push('<path class="eps-est" d="M' + x + ' ' + (yy - d) + 'L' + (x + d) + ' ' + yy + 'L' + x + ' ' + (yy + d) + 'L' + (x - d) + ' ' + yy + 'Z"/>');
+      }
+      s.push('<text class="tick" text-anchor="middle" x="' + x + '" y="' + (H - 10) + '">' + r.ql + '</text>');
+    });
+    s.push("</svg>");
+    root.innerHTML = s.join("");
+    g = { slot: slot, L: L, n: n, X: X };
+    if (active != null) show(active);
+  }
+
+  function row(label, value, cls) {
+    var d = document.createElement("div"); d.className = "tip-row";
+    var a = document.createElement("span"); a.textContent = label;
+    var b = document.createElement("b"); b.textContent = value; if (cls) b.className = cls;
+    d.appendChild(a); d.appendChild(b); return d;
+  }
+
+  function show(i) {
+    active = i;
+    var r = rows[i];
+    root.querySelectorAll("rect.eps-bar.on").forEach(function (b) { b.classList.remove("on"); });
+    var bar = root.querySelector('rect.eps-bar[data-i="' + i + '"]'); if (bar) bar.classList.add("on");
+    tip.textContent = "";
+    var h = document.createElement("div"); h.className = "tip-date"; h.textContent = r.q + " · 발표 " + r.date.replace(/-/g, ".");
+    var p = document.createElement("div"); p.className = "tip-price";
+    p.textContent = r.act != null ? money(r.act) : "발표 예정";
+    tip.appendChild(h); tip.appendChild(p);
+    tip.appendChild(row("컨센서스", money(r.est)));
+    if (r.sur != null) tip.appendChild(row("서프라이즈", (r.sur >= 0 ? "+" : "") + r.sur.toFixed(1) + "%", r.sur >= 0 ? "up" : "down"));
+    tip.hidden = false;
+    var x = g.X(i), tw = tip.offsetWidth, left = x + 14;
+    if (left + tw > root.clientWidth) left = x - tw - 14;
+    tip.style.transform = "translate(" + Math.max(0, left) + "px, 8px)";
+  }
+
+  function hide() {
+    active = null; tip.hidden = true;
+    root.querySelectorAll("rect.eps-bar.on").forEach(function (b) { b.classList.remove("on"); });
+  }
+
+  root.addEventListener("pointermove", function (ev) {
+    if (!g) return;
+    var rect = root.getBoundingClientRect();
+    var i = Math.floor((ev.clientX - rect.left - g.L) / g.slot);
+    if (i >= 0 && i < g.n) show(i); else hide();
+  });
+  root.addEventListener("pointerleave", hide);
+  root.addEventListener("focus", function () { show(active == null ? rows.length - 1 : active); });
+  root.addEventListener("blur", hide);
+  root.addEventListener("keydown", function (ev) {
+    var i = active == null ? rows.length - 1 : active;
+    if (ev.key === "ArrowLeft") i--; else if (ev.key === "ArrowRight") i++; else return;
+    ev.preventDefault(); show(Math.max(0, Math.min(rows.length - 1, i)));
+  });
+  if (window.ResizeObserver) new ResizeObserver(draw).observe(root); else window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+<script>(function(){var s=document.querySelector(".sb"),d=document.querySelector(".sb-dim");
+document.querySelectorAll(".menu-btn").forEach(function(b){b.onclick=function(){s.classList.add("open")}});
+d.onclick=function(){s.classList.remove("open")};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")s.classList.remove("open")});})();</script></body></html>
